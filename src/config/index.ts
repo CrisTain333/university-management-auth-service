@@ -4,5 +4,6 @@ dotenv.config({ path: path.join(process.cwd(), '.env') });
 
 export default {
    port: process.env.PORT || 8000,
-   database_url: process.env.DATABASE_URI
+   database_url: process.env.DATABASE_URI,
+   default_user_pass: process.env.DEFAULT_USER_PASS
 };
