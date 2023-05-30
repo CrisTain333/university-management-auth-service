@@ -1,7 +1,8 @@
-import express, { Application } from "express";
-import cors from "cors";
+import express, { Application } from 'express';
+import cors from 'cors';
 
 const app: Application = express();
+// const a = 0;
 
 // Parser
 app.use(cors());
