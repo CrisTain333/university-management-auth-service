@@ -3,13 +3,13 @@ import { createLogger, format, transports } from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 const { printf, combine, timestamp } = format;
 
-const myFormat = printf(({ level, message, timestamp }) => {
-   const date = new Date(timestamp);
+const myFormat = printf(({ level, message }) => {
+   const date = new Date();
    const hour = date.getHours();
    const minutes = date.getMinutes();
    const seconds = date.getSeconds();
 
-   return `${date.toDateString()} ${hour} ${minutes} ${seconds}   ${level}: ${message}`;
+   return `${date.toDateString()}  ${hour}:${minutes}:${seconds}  ${level}: ${message}`;
 });
 
 const logger = createLogger({
