@@ -6,7 +6,7 @@ import { errorLogger, logger } from './shared/logger';
 async function fire() {
    try {
       await mongoose.connect(config.database_url as string);
-      logger.info('🛢️ Connected To Database');
+      logger.info('🛢 Connected To Database');
       app.listen(config.port, () => {
          logger.info(`Server Fire in http:localhost//${config.port}`);
       });
