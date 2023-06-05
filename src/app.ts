@@ -14,6 +14,10 @@ app.use(express.urlencoded({ extended: true }));
 // Application routes
 app.use('/api/v1/users/', userRoute);
 
+// app.get('/', (req, res) => {
+//     Promise.reject('Just Try');
+// });
+
 // Global Error handler
 app.use(globalErrorHandler);
 export default app;

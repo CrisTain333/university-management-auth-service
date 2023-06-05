@@ -4,9 +4,13 @@ import app from './app';
 import { errorLogger, logger } from './shared/logger';
 import { Server } from 'http';
 
-async function fire() {
-    let server: Server;
+process.on('uncaughtException', (error) => {
+    errorLogger.error(error);
+    process.exit(1);
+});
+let server: Server;
 
+async function fire() {
     try {
         await mongoose.connect(config.database_url as string);
         logger.info('🛢 Connected To Database');
@@ -18,7 +22,6 @@ async function fire() {
     }
 
     process.on('unhandledRejection', (error) => {
-        console.log('Unhandled Rejection is Detected, we are closing the server .....');
         if (server) {
             server.close(() => {
                 errorLogger.error(error);
@@ -29,4 +32,12 @@ async function fire() {
         }
     });
 }
+
 fire();
+
+process.on('SIGTERM', () => {
+    logger.info('SIGTERM received');
+    if (server) {
+        server.close();
+    }
+});
