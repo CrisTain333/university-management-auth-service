@@ -8,12 +8,11 @@ export const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) =
     let statusCode = 500;
     let message = 'Something Went Wrong';
     let errorMessages: IGenericErrorMessage[] = [];
-
     if (error?.name === 'ValidationError') {
         const simpliFiedError = handleValidationError(error);
-        statusCode = simpliFiedError?.statusCode;
-        message = simpliFiedError?.message;
-        errorMessages = simpliFiedError?.errorMessages;
+        statusCode = simpliFiedError.statusCode;
+        message = simpliFiedError.message;
+        errorMessages = simpliFiedError.errorMessages;
     } else if (error instanceof ApiError) {
         statusCode = error?.statusCode;
         message = error?.message;
@@ -36,7 +35,6 @@ export const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) =
               ]
             : [];
     }
-
     res.status(statusCode).json({
         success: false,
         message,
