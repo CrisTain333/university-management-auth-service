@@ -8,6 +8,6 @@ const userZodSchema = z.object({
     })
 });
 
-export const UserValidation = {
+export const UserValidate = {
     userZodSchema
 };
