@@ -1,4 +1,4 @@
-import express, { Application } from 'express';
+import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 // import usersRouter from './app/modules/users/user.route';
 import { globalErrorHandler } from './middleware/globalErrorHandler';
@@ -13,6 +13,21 @@ app.use(express.urlencoded({ extended: true }));
 
 // Entrance
 app.use('/api/v1/', router);
+
+// Handle Not found
+app.use((req: Request, res: Response, next: NextFunction) => {
+    res.status(404).json({
+        success: false,
+        message: 'Not Found',
+        errorMessages: [
+            {
+                path: req.originalUrl,
+                message: 'Api Not Found'
+            }
+        ]
+    });
+    next();
+});
 
 // Global Error handler
 app.use(globalErrorHandler);
