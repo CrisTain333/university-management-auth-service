@@ -5,6 +5,7 @@ import {
     academicSemesterMonths,
     academicSemesterTitles
 } from './academicSemester.constant';
+import ApiError from '../../../error/ApiError';
 
 const academicSemesterSchema = new Schema<IAcademicSemester>(
     {
@@ -37,6 +38,16 @@ const academicSemesterSchema = new Schema<IAcademicSemester>(
         timestamps: true
     }
 );
+
+academicSemesterSchema.pre('save', async function (next) {
+    const ifExits = await AcademicSemester.findOne({ title: this.title, year: this.year });
+
+    if (ifExits) {
+        throw new ApiError(409, 'Academic semester all ready exits');
+    }
+    next();
+});
+
 export const AcademicSemester = model<IAcademicSemester, AcademicSemesterModel>(
     'AcademicSemester',
     academicSemesterSchema
