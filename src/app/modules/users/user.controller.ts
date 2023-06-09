@@ -6,7 +6,6 @@ import sendResponse from '../../../shared/sendResponse';
 const createUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const { user } = req.body;
     const result = await UserService.createUser(user);
-    next();
 
     // Send Response
     sendResponse(res, {
@@ -15,6 +14,8 @@ const createUser = catchAsync(async (req: Request, res: Response, next: NextFunc
         message: 'User Created Successfully',
         data: result
     });
+
+    next();
 });
 
 export const UserController = {

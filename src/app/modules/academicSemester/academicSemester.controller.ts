@@ -8,7 +8,6 @@ const createAcademicSemester = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
         const { ...academicSemesterData } = req.body;
         const result = await AcademicSemesterService.createAcademicSemester(academicSemesterData);
-        next();
 
         // Send Response
         sendResponse(res, {
@@ -17,6 +16,7 @@ const createAcademicSemester = catchAsync(
             message: 'Academy semester created successfully',
             data: result
         });
+        next();
     }
 );
 
