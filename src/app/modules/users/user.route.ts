@@ -7,4 +7,4 @@ const router = express.Router();
 
 router.post('/create-user', validateRequest(UserValidate.userZodSchema), UserController.createUser);
 
-export const userRoute = router;
+export const UserRoute = router;
