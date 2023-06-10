@@ -1,9 +1,7 @@
-// import { RequestHandler } from 'express';
 import { NextFunction, Request, Response } from 'express';
 import catchAsync from '../../../shared/catchAsync';
 import { AcademicSemesterService } from './academicSemester.service';
 import sendResponse from '../../../shared/sendResponse';
-// import pick from '../../../shared/pick';
 import { paginationFields } from '../../../constant/pagination';
 import pick from '../../../shared/pick';
 
@@ -24,9 +22,10 @@ const createAcademicSemester = catchAsync(
 );
 
 const getAllSemesters = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const filters = pick(req.query, ['searchTerm']);
     const paginationOptions = pick(req.query, paginationFields);
 
-    const result = await AcademicSemesterService.getAllSemestersFromDb(paginationOptions);
+    const result = await AcademicSemesterService.getAllSemestersFromDb(paginationOptions, filters);
 
     sendResponse(res, {
         statusCode: 200,
