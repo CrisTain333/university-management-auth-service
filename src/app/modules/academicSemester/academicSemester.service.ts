@@ -1,6 +1,6 @@
 import { AcademicSemester } from './academicSemesterModel';
 import { IAcademicSemester, IAcademicSemesterFilter } from './academicSemester.interface';
-import { academicSemesterTitleCodeMapper } from './academicSemester.constant';
+import { academicSemesterTitleCodeMapper, searchAbleFields } from './academicSemester.constant';
 import ApiError from '../../../error/ApiError';
 import { IPaginationOptions } from '../../../interface/pagination';
 import { paginationHelper } from '../../../helpers/paginationHelper';
@@ -30,35 +30,31 @@ const getAllSemestersFromDb = async (
     paginationOptions: IPaginationOptions,
     filters: IAcademicSemesterFilter
 ): Promise<IGenericResponse<IAcademicSemester[]>> => {
+    const { searchTerm, ...filtersData } = filters;
+
+    const andConditions = [];
+
+    if (searchTerm) {
+        andConditions.push({
+            $or: searchAbleFields.map((fields) => ({
+                [fields]: {
+                    $regex: searchTerm,
+                    $options: 'i'
+                }
+            }))
+        });
+    }
+
+    if (Object.keys(filtersData).length) {
+        andConditions.push({
+            $and: Object.entries(filtersData).map(([field, value]) => ({
+                [field]: value
+            }))
+        });
+    }
+
     const { limit, page, skip, sortBy, sortOrder } =
         paginationHelper.calculatePagination(paginationOptions);
-
-    const { searchTerm } = filters;
-
-    const andConditions = [
-        {
-            $or: [
-                {
-                    title: {
-                        $regex: searchTerm,
-                        $options: 'i'
-                    }
-                },
-                {
-                    code: {
-                        $regex: searchTerm,
-                        $options: 'i'
-                    }
-                },
-                {
-                    year: {
-                        $regex: searchTerm,
-                        $options: ''
-                    }
-                }
-            ]
-        }
-    ];
 
     const sortCondition: { [key: string]: SortOrder } = {};
 

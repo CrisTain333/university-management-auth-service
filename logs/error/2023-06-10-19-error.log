@@ -1,0 +1,5 @@
+Sat Jun 10 2023  19:52:5  error: Cast to number failed for value "" (type string) at path "year" for model "AcademicSemester"
+Sat Jun 10 2023  19:52:49  error: Cast to number failed for value "undefined" (type undefined) at path "year" for model "AcademicSemester"
+Sat Jun 10 2023  19:53:42  error: $regex has to be a string
+Sat Jun 10 2023  19:57:54  error: Academic semester all ready exits
+Sat Jun 10 2023  19:59:51  error: $regex has to be a string
