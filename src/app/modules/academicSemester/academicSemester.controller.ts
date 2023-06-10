@@ -32,7 +32,7 @@ const getAllSemesters = catchAsync(async (req: Request, res: Response, next: Nex
         statusCode: 200,
         success: true,
         message: 'Semester retrieved successfully ',
-        data: result,
+        data: result?.data,
         meta: result?.meta
     });
     next();
