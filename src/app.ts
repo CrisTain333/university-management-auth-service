@@ -14,6 +14,9 @@ app.use(express.urlencoded({ extended: true }));
 // Entrance
 app.use('/api/v1/', router);
 
+// Global Error handler
+app.use(globalErrorHandler);
+
 // Handle Not found
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.status(404).json({
@@ -29,6 +32,4 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     next();
 });
 
-// Global Error handler
-app.use(globalErrorHandler);
 export default app;

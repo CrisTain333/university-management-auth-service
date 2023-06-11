@@ -6,8 +6,14 @@ import config from '../config';
 import ApiError from '../error/ApiError';
 import { ZodError } from 'zod';
 import handleZodError from '../error/zodErrorHandler';
+import { errorLogger } from '../shared/logger';
+import handleCastError from '../error/handleCastError';
 
 export const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
+    // eslint-disable-next-line no-unused-expressions
+    config.NODE_ENV === 'development'
+        ? console.log(`🐱‍🏍 globalErrorHandler ~~`, { error })
+        : errorLogger.error(`🐱‍🏍 globalErrorHandler ~~`, error);
     let statusCode = 500;
     let message = 'Something Went Wrong';
     let errorMessages: IGenericErrorMessage[] = [];
@@ -42,6 +48,11 @@ export const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) =
                   }
               ]
             : [];
+    } else if (error?.name === 'CastError') {
+        const simplifiedError = handleCastError(error);
+        statusCode = simplifiedError.statusCode;
+        message = simplifiedError.message;
+        errorMessages = simplifiedError.errorMessages;
     }
     res.status(statusCode).json({
         success: false,
@@ -49,5 +60,5 @@ export const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) =
         errorMessages,
         stack: config.NODE_ENV !== 'production' ? error?.stack : undefined
     });
-    // next();
+    next();
 };
