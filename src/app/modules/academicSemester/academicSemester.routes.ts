@@ -11,7 +11,7 @@ router.post(
 );
 
 // Get single semester
-// router.get('/:id', AcademySemesterController.getSingleSemester);
+router.get('/:id', AcademySemesterController.getSingleSemester);
 
 //Get semesters
 router.get('/', AcademySemesterController.getAllSemesters);

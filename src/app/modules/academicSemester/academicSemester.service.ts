@@ -7,6 +7,14 @@ import { paginationHelper } from '../../../helpers/paginationHelper';
 import { SortOrder } from 'mongoose';
 // import { IPaginationOptions } from '../../../interface/pagination';
 
+type IGenericResponse<T> = {
+    meta: {
+        page: number;
+        limit: number;
+        total: number;
+    };
+    data: T;
+};
 const createAcademicSemester = async (payload: IAcademicSemester): Promise<IAcademicSemester> => {
     if (academicSemesterTitleCodeMapper[payload?.title] !== payload.code) {
         throw new ApiError(400, 'Invalid Semester Code');
@@ -15,15 +23,6 @@ const createAcademicSemester = async (payload: IAcademicSemester): Promise<IAcad
     const result = await AcademicSemester.create(payload);
 
     return result;
-};
-
-type IGenericResponse<T> = {
-    meta: {
-        page: number;
-        limit: number;
-        total: number;
-    };
-    data: T;
 };
 
 const getAllSemestersFromDb = async (
@@ -80,7 +79,15 @@ const getAllSemestersFromDb = async (
     };
 };
 
+const getSingleSemester = async (id: string): Promise<IAcademicSemester | null> => {
+    const result = await AcademicSemester.findById(id);
+    return result;
+};
+
+// const getSingleSemester = async()
+
 export const AcademicSemesterService = {
     createAcademicSemester,
-    getAllSemestersFromDb
+    getAllSemestersFromDb,
+    getSingleSemester
 };
