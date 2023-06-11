@@ -1,18 +1,18 @@
 import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
-// import usersRouter from './app/modules/users/user.route';
-import { globalErrorHandler } from './middleware/globalErrorHandler';
+
 import router from './app/routes';
+import globalErrorHandler from './middleware/globalErrorHandler';
 
 const app: Application = express();
 
-// Parser
 app.use(cors());
+// Parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Entrance
-app.use('/api/v1/', router);
+app.use('/api/v1', router);
 
 // Global Error handler
 app.use(globalErrorHandler);
