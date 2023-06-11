@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ErrorRequestHandler } from 'express';
 import handleValidationError from '../error/handleValidationError';
 import { IGenericErrorMessage } from '../interface/error';
@@ -48,5 +49,5 @@ export const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) =
         errorMessages,
         stack: config.NODE_ENV !== 'production' ? error?.stack : undefined
     });
-    next();
+    // next();
 };
