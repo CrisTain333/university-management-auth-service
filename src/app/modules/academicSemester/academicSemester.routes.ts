@@ -13,11 +13,15 @@ router.post(
 // Get single semester
 router.get('/:id', AcademySemesterController.getSingleSemester);
 
+//Update  semesters
 router.patch(
     '/:id',
     validateRequest(AcademicSemesterValidate.updateAcademicSemesterZodSchema),
     AcademySemesterController.updateSemester
 );
+
+// delete semester
+router.delete('/:id', AcademySemesterController.deleteSemester);
 
 //Get semesters
 router.get('/', AcademySemesterController.getAllSemesters);
