@@ -54,6 +54,16 @@
             "date": 1686500592271,
             "name": "D:\\Next Level Projects\\university-management-auth-service\\logs\\success\\2023-06-11-22-success.log",
             "hash": "ca85f6dfd689dd556d21a98be1b59b11e31055305e7fcac843cdf3a620ee5612"
+        },
+        {
+            "date": 1686574124836,
+            "name": "D:\\Next Level Projects\\university-management-auth-service\\logs\\success\\2023-06-12-18-success.log",
+            "hash": "4af0db0adb04eeba2a16e91f5209fe9cb64737d49b9042a4a120caf899751657"
+        },
+        {
+            "date": 1686577720924,
+            "name": "D:\\Next Level Projects\\university-management-auth-service\\logs\\success\\2023-06-12-19-success.log",
+            "hash": "3e2b2a4e9102cdba2c35019a66b9074eb754a5de49991b95b2147c00ca08df72"
         }
     ],
     "hashType": "sha256"

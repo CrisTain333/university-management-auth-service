@@ -17,6 +17,16 @@ app.use('/api/v1', router);
 // Global Error handler
 app.use(globalErrorHandler);
 
+// const testid = async () => {
+//     const data = {
+//         year: '2025',
+//         code: '01'
+//     };
+//     const result = await generateUserId(data);
+//     console.log(result);
+// };
+// testid();
+
 // Handle Not found
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.status(404).json({
