@@ -69,6 +69,11 @@
             "date": 1686659471884,
             "name": "D:\\Next Level Projects\\university-management-auth-service\\logs\\error\\2023-06-13-18-error.log",
             "hash": "556c423b5c399eebe932db8e9663504726eeb0ea8c1228177df8f6228e7a5fff"
+        },
+        {
+            "date": 1686661571792,
+            "name": "D:\\Next Level Projects\\university-management-auth-service\\logs\\error\\2023-06-13-19-error.log",
+            "hash": "3e1e7247544a2fe15cad66f4e40a5c853fec5275ccd508f42dc51b1ae80a2c50"
         }
     ],
     "hashType": "sha256"
