@@ -1,3 +1,4 @@
+import ApiError from '../../../error/ApiError';
 import { IAcademicSemester } from '../academicSemester/academicSemester.interface';
 import { User } from './user.model';
 
@@ -20,10 +21,20 @@ export const generateStudentId = async (academicSemester: IAcademicSemester | nu
     const currentId = (await findLastStudentId()) || (0).toString().padStart(5, '0'); //00000
     //increment by 1
     let incrementedId = (parseInt(currentId) + 1).toString().padStart(5, '0');
-    //20 25
-    incrementedId = `${academicSemester.year.substring(2)}${academicSemester.code}${incrementedId}`;
+
+    if (academicSemester) {
+        incrementedId = `${academicSemester.year.substring(2)}${
+            academicSemester.code
+        }${incrementedId}`;
+    } else {
+        throw new ApiError(400, 'Academic Semester is required to generate student id');
+    }
 
     return incrementedId;
+
+    // incrementedId = `${academicSemester.year.substring(2)}${academicSemester.code}${incrementedId}`;
+
+    // return incrementedId;
 };
 
 export const findLastFacultyId = async (): Promise<string | undefined> => {
