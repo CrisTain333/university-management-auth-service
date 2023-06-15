@@ -1,12 +1,14 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
+'use strict';
+var __importDefault =
+    (this && this.__importDefault) ||
+    function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+    };
+Object.defineProperty(exports, '__esModule', { value: true });
 exports.errorLogger = exports.logger = void 0;
-const path_1 = __importDefault(require("path"));
-const winston_1 = require("winston");
-const winston_daily_rotate_file_1 = __importDefault(require("winston-daily-rotate-file"));
+const path_1 = __importDefault(require('path'));
+const winston_1 = require('winston');
+const winston_daily_rotate_file_1 = __importDefault(require('winston-daily-rotate-file'));
 const { printf, combine, timestamp } = winston_1.format;
 const myFormat = printf(({ level, message }) => {
     const date = new Date();

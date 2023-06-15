@@ -1,8 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
 exports.UserValidate = void 0;
-const zod_1 = require("zod");
-const student_constant_1 = require("../student/student.constant");
+const zod_1 = require('zod');
+const student_constant_1 = require('../student/student.constant');
 const userZodSchema = zod_1.z.object({
     body: zod_1.z.object({
         password: zod_1.z.string().optional(),
@@ -24,8 +24,8 @@ const userZodSchema = zod_1.z.object({
             }),
             email: zod_1.z
                 .string({
-                required_error: 'Email is required'
-            })
+                    required_error: 'Email is required'
+                })
                 .email(),
             contactNo: zod_1.z.string({
                 required_error: 'Contact number is required'
