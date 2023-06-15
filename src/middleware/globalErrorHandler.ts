@@ -6,14 +6,14 @@ import config from '../config';
 import ApiError from '../error/ApiError';
 import { ZodError } from 'zod';
 import handleZodError from '../error/zodErrorHandler';
-import { errorLogger } from '../shared/logger';
+// import { errorLogger } from '../shared/logger';
 import handleCastError from '../error/handleCastError';
 
 const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
     // eslint-disable-next-line no-unused-expressions
     config.NODE_ENV === 'development'
         ? console.log(`🐱‍🏍 globalErrorHandler ~~`, { error })
-        : errorLogger.error(`🐱‍🏍 globalErrorHandler ~~`, error);
+        : console.log(`🐱‍🏍 globalErrorHandler ~~`, error);
 
     let statusCode = 500;
     let message = 'Something went wrong !';
