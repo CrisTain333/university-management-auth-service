@@ -53,8 +53,10 @@ export const findLastFacultyId = async () => {
 };
 
 export const generateFacultyId = async () => {
-    const currentId = (await findLastStudentId()) || (0).toString().padStart(5, '0');
+    const currentId = (await findLastFacultyId()) || (0).toString().padStart(5, '0');
+    console.log(`Current-Id : ${currentId} `);
     let incrementedId = (parseInt(currentId) + 1).toString().padStart(5, '0');
+    console.log(`Incremented-Id : ${incrementedId} `);
 
     //formate the Faculty Id
     incrementedId = `F-${incrementedId}`;

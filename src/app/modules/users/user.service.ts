@@ -12,6 +12,8 @@ import { Faculty } from '../faculty/faculty.model';
 
 const createStudent = async (student: IStudent, user: IUser): Promise<IUser | null> => {
     // Default password
+
+    console.log(user);
     if (!user.password) {
         user.password = config.default_student_pass as string;
     }
@@ -98,6 +100,7 @@ const createFaculty = async (faculty: IFaculty, user: IUser): Promise<IUser | nu
         const facultyId = await generateFacultyId();
         user.id = facultyId;
         faculty.id = facultyId;
+        // faculty.
 
         const newFaculty = await Faculty.create([faculty], { session });
 
