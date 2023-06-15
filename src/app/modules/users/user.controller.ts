@@ -16,6 +16,11 @@ const createStudent = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const createFaculty = catchAsync(async (req: Request, res: Response) => {
+    console.log('hello', req, res);
+});
+
 export const UserController = {
-    createStudent
+    createStudent,
+    createFaculty
 };
