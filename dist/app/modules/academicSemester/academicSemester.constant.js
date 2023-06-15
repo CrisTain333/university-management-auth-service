@@ -1,6 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.searchAbleFields = exports.academicSemesterTitleCodeMapper = exports.academicSemesterMonths = exports.academicSemesterCodes = exports.academicSemesterTitles = void 0;
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+exports.searchAbleFields =
+    exports.academicSemesterTitleCodeMapper =
+    exports.academicSemesterMonths =
+    exports.academicSemesterCodes =
+    exports.academicSemesterTitles =
+        void 0;
 exports.academicSemesterTitles = ['Autumn', 'Summer', 'Fall'];
 exports.academicSemesterCodes = ['01', '02', '03'];
 exports.academicSemesterMonths = [
