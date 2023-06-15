@@ -77,6 +77,11 @@ const createStudent = async (student: IStudent, user: IUser): Promise<IUser | nu
     return newUserData;
 };
 
+const createFaculty = async () => {
+    console.log('hello');
+};
+
 export const UserService = {
-    createStudent
+    createStudent,
+    createFaculty
 };
