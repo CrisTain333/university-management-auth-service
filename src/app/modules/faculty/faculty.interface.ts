@@ -1,4 +1,4 @@
-import { Types } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { IAcademicDepartment } from '../academicDepartment/academicDepartment.interfaces';
 import { IAcademicFaculty } from '../academicFaculty/academicFaculty.interface';
 
@@ -24,3 +24,5 @@ export type IFaculty = {
     academicFaculty: Types.ObjectId | IAcademicFaculty;
     profileImage?: string;
 };
+
+export type facultyModel = Model<IFaculty, Record<string, unknown>>;
