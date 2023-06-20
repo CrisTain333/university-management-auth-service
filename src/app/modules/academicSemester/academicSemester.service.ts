@@ -35,7 +35,7 @@ const getAllSemestersFromDb = async (
 
     if (searchTerm) {
         andConditions.push({
-            $or: searchAbleFields.map((fields) => ({
+            $or: searchAbleFields.map(fields => ({
                 [fields]: {
                     $regex: searchTerm,
                     $options: 'i'

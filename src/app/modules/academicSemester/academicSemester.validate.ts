@@ -51,12 +51,9 @@ const updateAcademicSemesterZodSchema = z
                 .optional()
         })
     })
-    .refine(
-        (data) => (data.body.title && data.body.code) || (!data.body.title && !data.body.code),
-        {
-            message: 'Either both title and code should be provided or neither'
-        }
-    );
+    .refine(data => (data.body.title && data.body.code) || (!data.body.title && !data.body.code), {
+        message: 'Either both title and code should be provided or neither'
+    });
 
 export const AcademicSemesterValidate = {
     academicSemesterZodSchema,

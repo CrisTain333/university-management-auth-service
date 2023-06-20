@@ -48,7 +48,7 @@ exports.AcademicFacultyService = void 0;
 const paginationHelper_1 = require('../../../helpers/paginationHelper');
 const academicFaculty_model_1 = require('./academicFaculty.model');
 const academicFaculty_constant_1 = require('./academicFaculty.constant');
-const createFaculty = (payload) =>
+const createFaculty = payload =>
     __awaiter(void 0, void 0, void 0, function* () {
         const result = yield academicFaculty_model_1.AcademicFaculty.create(payload);
         return result;
@@ -62,7 +62,7 @@ const getAllFaculties = (filters, paginationOptions) =>
         const andConditions = [];
         if (searchTerm) {
             andConditions.push({
-                $or: academicFaculty_constant_1.academicFacultySearchableFields.map((field) => ({
+                $or: academicFaculty_constant_1.academicFacultySearchableFields.map(field => ({
                     [field]: {
                         $regex: searchTerm,
                         $options: 'i'
@@ -96,7 +96,7 @@ const getAllFaculties = (filters, paginationOptions) =>
             data: result
         };
     });
-const getSingleFaculty = (id) =>
+const getSingleFaculty = id =>
     __awaiter(void 0, void 0, void 0, function* () {
         const result = yield academicFaculty_model_1.AcademicFaculty.findById(id);
         return result;
@@ -112,7 +112,7 @@ const updateFaculty = (id, payload) =>
         );
         return result;
     });
-const deleteByIdFromDB = (id) =>
+const deleteByIdFromDB = id =>
     __awaiter(void 0, void 0, void 0, function* () {
         const result = yield academicFaculty_model_1.AcademicFaculty.findByIdAndDelete(id);
         return result;

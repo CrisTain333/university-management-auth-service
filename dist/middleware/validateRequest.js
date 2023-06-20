@@ -31,7 +31,7 @@ var __awaiter =
         });
     };
 Object.defineProperty(exports, '__esModule', { value: true });
-const validateRequest = (schema) => (req, res, next) =>
+const validateRequest = schema => (req, res, next) =>
     __awaiter(void 0, void 0, void 0, function* () {
         try {
             yield schema.parseAsync({

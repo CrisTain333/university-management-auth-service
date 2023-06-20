@@ -1,7 +1,7 @@
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 // import { IGenericErrorMessage } from '../interfaces/error';
-const handleCastError = (error) => {
+const handleCastError = error => {
     const errors = [
         {
             path: error.path,
