@@ -58,7 +58,7 @@ const getAllDepartments = (filters, paginationOptions) =>
         if (searchTerm) {
             andConditions.push({
                 $or: academicDepartment_constants_1.academicDepartmentSearchableFields.map(
-                    (field) => ({
+                    field => ({
                         [field]: {
                             $regex: searchTerm,
                             $paginationOptions: 'i'
@@ -94,14 +94,14 @@ const getAllDepartments = (filters, paginationOptions) =>
             data: result
         };
     });
-const createDepartment = (payload) =>
+const createDepartment = payload =>
     __awaiter(void 0, void 0, void 0, function* () {
         const result = (yield academicDepartment_model_1.AcademicDepartment.create(
             payload
         )).populate('academicFaculty');
         return result;
     });
-const getSingleDepartment = (id) =>
+const getSingleDepartment = id =>
     __awaiter(void 0, void 0, void 0, function* () {
         const result = yield academicDepartment_model_1.AcademicDepartment.findById(id).populate(
             'academicFaculty'
@@ -119,7 +119,7 @@ const updateDepartment = (id, payload) =>
         ).populate('academicFaculty');
         return result;
     });
-const deleteDepartment = (id) =>
+const deleteDepartment = id =>
     __awaiter(void 0, void 0, void 0, function* () {
         const result = yield academicDepartment_model_1.AcademicDepartment.findByIdAndDelete(id);
         return result;

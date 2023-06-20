@@ -31,7 +31,7 @@ var __awaiter =
         });
     };
 Object.defineProperty(exports, '__esModule', { value: true });
-const catchAsync = (fn) => {
+const catchAsync = fn => {
     return (req, res, next) =>
         __awaiter(void 0, void 0, void 0, function* () {
             try {

@@ -54,7 +54,7 @@ const academicSemesterModel_1 = require('./academicSemesterModel');
 const academicSemester_constant_1 = require('./academicSemester.constant');
 const ApiError_1 = __importDefault(require('../../../error/ApiError'));
 const paginationHelper_1 = require('../../../helpers/paginationHelper');
-const createAcademicSemester = (payload) =>
+const createAcademicSemester = payload =>
     __awaiter(void 0, void 0, void 0, function* () {
         if (
             academicSemester_constant_1.academicSemesterTitleCodeMapper[
@@ -73,7 +73,7 @@ const getAllSemestersFromDb = (paginationOptions, filters) =>
         const andConditions = [];
         if (searchTerm) {
             andConditions.push({
-                $or: academicSemester_constant_1.searchAbleFields.map((fields) => ({
+                $or: academicSemester_constant_1.searchAbleFields.map(fields => ({
                     [fields]: {
                         $regex: searchTerm,
                         $options: 'i'
@@ -109,7 +109,7 @@ const getAllSemestersFromDb = (paginationOptions, filters) =>
             data: result
         };
     });
-const getSingleSemester = (id) =>
+const getSingleSemester = id =>
     __awaiter(void 0, void 0, void 0, function* () {
         const result = yield academicSemesterModel_1.AcademicSemester.findById(id);
         return result;
@@ -133,7 +133,7 @@ const updateSemester = (id, payload) =>
         );
         return result;
     });
-const deleteSemester = (id) =>
+const deleteSemester = id =>
     __awaiter(void 0, void 0, void 0, function* () {
         const result = yield academicSemesterModel_1.AcademicSemester.findByIdAndDelete(id);
         return result;

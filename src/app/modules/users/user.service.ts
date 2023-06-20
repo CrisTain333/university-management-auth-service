@@ -81,7 +81,7 @@ const createStudent = async (student: IStudent, user: IUser): Promise<IUser | nu
     return newUserData;
 };
 
-const createFaculty = async (faculty: IFaculty, user: IUser): Promise<IUser | null> => {
+const createFaculty = async (faculty: IFaculty, user: IUser) => {
     // Default password
     if (!user.password) {
         user.password = config.default_faculty_pass as string;
@@ -102,40 +102,41 @@ const createFaculty = async (faculty: IFaculty, user: IUser): Promise<IUser | nu
         faculty.id = facultyId;
         // faculty.
 
-        const newFaculty = await Faculty.create([faculty], { session });
-
-        if (!newFaculty.length) {
+        const newFaculty: any = await Faculty.create(faculty, { session });
+        if (!newFaculty) {
             throw new ApiError(400, 'Failed to create Faculty');
         }
+        if (newFaculty) {
+            user.faculty = newFaculty._id;
+        }
 
-        user.faculty = newFaculty[0]._id;
-
-        const newUser = await User.create([user], { session });
-
-        if (!newUser.length) {
+        const newUser = await User.create(user, { session });
+        if (!newUser) {
             throw new ApiError(400, 'Failed to create user');
         }
 
-        newUserData = newUser[0];
+        newUserData = newUser;
+        console.log(newUserData);
     } catch (error) {
+        console.log(error);
         await session.abortTransaction();
         await session.endSession();
         throw error;
     }
-
-    if (newUserData) {
-        newUserData = await User.findOne({ id: newUserData.id }).populate({
-            path: 'faculty',
-            populate: [
-                {
-                    path: 'academicDepartment'
-                },
-                {
-                    path: 'academicFaculty'
-                }
-            ]
-        });
-    }
+    // console.log(newUserData);
+    // if (newUserData) {
+    //     newUserData = await User.findOne({ id: newUserData.id }).populate({
+    //         path: 'faculty',
+    //         populate: [
+    //             {
+    //                 path: 'academicDepartment'
+    //             },
+    //             {
+    //                 path: 'academicFaculty'
+    //             }
+    //         ]
+    //     });
+    // }
 
     return newUserData;
 };

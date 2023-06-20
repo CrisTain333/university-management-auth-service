@@ -60,7 +60,7 @@ const findLastStudentId = () =>
             : undefined;
     });
 exports.findLastStudentId = findLastStudentId;
-const generateStudentId = (academicSemester) =>
+const generateStudentId = academicSemester =>
     __awaiter(void 0, void 0, void 0, function* () {
         const currentId =
             (yield (0, exports.findLastStudentId)()) || (0).toString().padStart(5, '0'); //00000

@@ -20,7 +20,7 @@ const getAllDepartments = async (
 
     if (searchTerm) {
         andConditions.push({
-            $or: academicDepartmentSearchableFields.map((field) => ({
+            $or: academicDepartmentSearchableFields.map(field => ({
                 [field]: {
                     $regex: searchTerm,
                     $paginationOptions: 'i'

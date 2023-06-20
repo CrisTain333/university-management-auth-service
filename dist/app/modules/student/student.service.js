@@ -63,7 +63,7 @@ const getAllStudents = (filters, paginationOptions) =>
         const andConditions = [];
         if (searchTerm) {
             andConditions.push({
-                $or: student_constant_1.studentSearchableFields.map((field) => ({
+                $or: student_constant_1.studentSearchableFields.map(field => ({
                     [field]: {
                         $regex: searchTerm,
                         $options: 'i'
@@ -100,7 +100,7 @@ const getAllStudents = (filters, paginationOptions) =>
             data: result
         };
     });
-const getSingleStudent = (id) =>
+const getSingleStudent = id =>
     __awaiter(void 0, void 0, void 0, function* () {
         const result = yield student_model_1.Student.findById(id)
             .populate('academicSemester')
@@ -125,20 +125,20 @@ const updateStudent = (id, payload) =>
 */
         // dynamically handling
         if (name && Object.keys(name).length > 0) {
-            Object.keys(name).forEach((key) => {
+            Object.keys(name).forEach(key => {
                 const nameKey = `name.${key}`; // `name.fisrtName`
                 updatedStudentData[nameKey] = name[key];
             });
         }
         if (guardian && Object.keys(guardian).length > 0) {
-            Object.keys(guardian).forEach((key) => {
+            Object.keys(guardian).forEach(key => {
                 const guardianKey = `guardian.${key}`; // `guardian.fisrtguardian`
                 updatedStudentData[guardianKey] = guardian[key]; // updatedStudentData['guardian.motherContactNo']=guardian[motherContactNo]
                 // updatedStudentData --> object create --> guardian : { motherContactNo: 0177}
             });
         }
         if (localGuardian && Object.keys(localGuardian).length > 0) {
-            Object.keys(localGuardian).forEach((key) => {
+            Object.keys(localGuardian).forEach(key => {
                 const localGuradianKey = `localGuardian.${key}`; // `localGuardian.fisrtName`
                 updatedStudentData[localGuradianKey] = localGuardian[key];
             });
@@ -148,7 +148,7 @@ const updateStudent = (id, payload) =>
         });
         return result;
     });
-const deleteStudent = (id) =>
+const deleteStudent = id =>
     __awaiter(void 0, void 0, void 0, function* () {
         const result = yield student_model_1.Student.findByIdAndDelete(id)
             .populate('academicSemester')

@@ -39,7 +39,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 const mongoose_1 = __importDefault(require('mongoose'));
 const config_1 = __importDefault(require('./config'));
 const app_1 = __importDefault(require('./app'));
-process.on('uncaughtException', (error) => {
+process.on('uncaughtException', error => {
     console.log(error);
     process.exit(1);
 });
@@ -55,7 +55,7 @@ function fire() {
         } catch (error) {
             console.log('Error to connect Database');
         }
-        process.on('unhandledRejection', (error) => {
+        process.on('unhandledRejection', error => {
             if (server) {
                 server.close(() => {
                     console.log(error);

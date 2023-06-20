@@ -4,7 +4,7 @@ import app from './app';
 // import { errorLogger, logger } from './shared/logger';
 import { Server } from 'http';
 
-process.on('uncaughtException', (error) => {
+process.on('uncaughtException', error => {
     console.log(error);
     process.exit(1);
 });
@@ -21,7 +21,7 @@ async function fire() {
         console.log('Error to connect Database');
     }
 
-    process.on('unhandledRejection', (error) => {
+    process.on('unhandledRejection', error => {
         if (server) {
             server.close(() => {
                 console.log(error);
