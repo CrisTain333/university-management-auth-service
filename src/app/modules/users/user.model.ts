@@ -19,6 +19,10 @@ const userSchema = new Schema<IUser>(
         student: {
             type: Schema.Types.ObjectId,
             ref: 'Student'
+        },
+        faculty: {
+            type: Schema.Types.ObjectId,
+            ref: 'Faculty'
         }
     },
     {

@@ -103,7 +103,7 @@ const createFaculty = async (faculty: IFaculty, user: IUser): Promise<IUser | nu
         // faculty.
 
         const newFaculty = await Faculty.create([faculty], { session });
-
+        console.log(newFaculty);
         if (!newFaculty.length) {
             throw new ApiError(400, 'Failed to create Faculty');
         }
@@ -111,31 +111,33 @@ const createFaculty = async (faculty: IFaculty, user: IUser): Promise<IUser | nu
         user.faculty = newFaculty[0]._id;
 
         const newUser = await User.create([user], { session });
-
+        console.log(newUser);
         if (!newUser.length) {
             throw new ApiError(400, 'Failed to create user');
         }
 
         newUserData = newUser[0];
+        console.log(newUserData);
     } catch (error) {
+        console.log(error);
         await session.abortTransaction();
         await session.endSession();
         throw error;
     }
-
-    if (newUserData) {
-        newUserData = await User.findOne({ id: newUserData.id }).populate({
-            path: 'faculty',
-            populate: [
-                {
-                    path: 'academicDepartment'
-                },
-                {
-                    path: 'academicFaculty'
-                }
-            ]
-        });
-    }
+    // console.log(newUserData);
+    // if (newUserData) {
+    //     newUserData = await User.findOne({ id: newUserData.id }).populate({
+    //         path: 'faculty',
+    //         populate: [
+    //             {
+    //                 path: 'academicDepartment'
+    //             },
+    //             {
+    //                 path: 'academicFaculty'
+    //             }
+    //         ]
+    //     });
+    // }
 
     return newUserData;
 };
