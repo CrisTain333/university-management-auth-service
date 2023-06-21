@@ -11,18 +11,32 @@ export type UserName = {
 export type IFaculty = {
     id: string;
     name: UserName;
-    dateOfBirth: string;
+    profileImage: string;
+    dateOfBirth?: string;
     email: string;
     contactNo: string;
     emergencyContactNo: string;
-    gender: 'male' | 'female';
-    permanentAddress: string;
-    presentAddress: string;
+    gender?: 'male' | 'female';
+    permanentAddress?: string;
+    presentAddress?: string;
     bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
-    designation: string;
+
     academicDepartment: Types.ObjectId | IAcademicDepartment;
     academicFaculty: Types.ObjectId | IAcademicFaculty;
-    profileImage?: string;
+    designation: string;
 };
 
-export type facultyModel = Model<IFaculty, Record<string, unknown>>;
+export type FacultyModel = Model<IFaculty, Record<string, unknown>>;
+
+export type IFacultyFilters = {
+    searchTerm?: string;
+    id?: string;
+    email?: string;
+    contactNo?: string;
+    emergencyContactNo?: string;
+    gender?: 'male' | 'female';
+    bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
+    academicDepartment?: string;
+    academicFaculty?: string;
+    designation?: string;
+};
