@@ -54,12 +54,28 @@ export const findLastFacultyId = async () => {
 
 export const generateFacultyId = async () => {
     const currentId = (await findLastFacultyId()) || (0).toString().padStart(5, '0');
-    console.log(`Current-Id : ${currentId} `);
     let incrementedId = (parseInt(currentId) + 1).toString().padStart(5, '0');
-    console.log(`Incremented-Id : ${incrementedId} `);
 
     //formate the Faculty Id
     incrementedId = `F-${incrementedId}`;
+
+    return incrementedId;
+};
+
+export const findLastAdminId = async (): Promise<string | undefined> => {
+    const lastFaculty = await User.findOne({ role: 'admin' }, { id: 1, _id: 0 })
+        .sort({
+            createdAt: -1
+        })
+        .lean();
+
+    return lastFaculty?.id ? lastFaculty.id.substring(2) : undefined;
+};
+
+export const generateAdminId = async (): Promise<string> => {
+    const currentId = (await findLastAdminId()) || (0).toString().padStart(5, '0');
+    let incrementedId = (parseInt(currentId) + 1).toString().padStart(5, '0');
+    incrementedId = `A-${incrementedId}`;
 
     return incrementedId;
 };
