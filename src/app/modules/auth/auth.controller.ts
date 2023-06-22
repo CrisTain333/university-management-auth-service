@@ -3,6 +3,11 @@ import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { AuthService } from './auth.service';
 import config from '../../../config';
+import { IRefreshTokenResponse } from './auth.interface';
+import { jwtHelpers } from '../../../helpers/jwtHelper';
+import { User } from '../users/user.model';
+import ApiError from '../../../error/ApiError';
+import { Secret } from 'jsonwebtoken';
 
 const loginUser = catchAsync(async (req: Request, res: Response) => {
     const { ...loginData } = req.body;
@@ -26,6 +31,42 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const refreshToken = async (token: string): Promise<IRefreshTokenResponse> => {
+    //verify token
+    // invalid token - synchronous
+    let verifiedToken = null;
+    try {
+        verifiedToken = jwtHelpers.verifyToken(token, config.jwt.refresh_secret as Secret);
+    } catch (err) {
+        throw new ApiError(403, 'Invalid Refresh Token');
+    }
+
+    const { userId } = verifiedToken;
+
+    // tumi delete hye gso  kintu tumar refresh token ase
+    // checking deleted user's refresh token
+
+    const isUserExist = await User.isUserExist(userId);
+    if (!isUserExist) {
+        throw new ApiError(404, 'User does not exist');
+    }
+    //generate new token
+
+    const newAccessToken = jwtHelpers.createToken(
+        {
+            id: isUserExist.id,
+            role: isUserExist.role
+        },
+        config.jwt.secret as Secret,
+        config.jwt.expires_in as string
+    );
+
+    return {
+        accessToken: newAccessToken
+    };
+};
+
 export const AuthController = {
-    loginUser
+    loginUser,
+    refreshToken
 };
