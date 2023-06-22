@@ -4,10 +4,6 @@ import sendResponse from '../../../shared/sendResponse';
 import { AuthService } from './auth.service';
 import config from '../../../config';
 import { IRefreshTokenResponse } from './auth.interface';
-import { jwtHelpers } from '../../../helpers/jwtHelper';
-import { User } from '../users/user.model';
-import ApiError from '../../../error/ApiError';
-import { Secret } from 'jsonwebtoken';
 
 const loginUser = catchAsync(async (req: Request, res: Response) => {
     const { ...loginData } = req.body;
@@ -31,40 +27,27 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-const refreshToken = async (token: string): Promise<IRefreshTokenResponse> => {
-    //verify token
-    // invalid token - synchronous
-    let verifiedToken = null;
-    try {
-        verifiedToken = jwtHelpers.verifyToken(token, config.jwt.refresh_secret as Secret);
-    } catch (err) {
-        throw new ApiError(403, 'Invalid Refresh Token');
-    }
+const refreshToken = catchAsync(async (req: Request, res: Response) => {
+    const { refreshToken } = req.cookies;
 
-    const { userId } = verifiedToken;
+    const result = await AuthService.refreshToken(refreshToken);
 
-    // tumi delete hye gso  kintu tumar refresh token ase
-    // checking deleted user's refresh token
+    // set refresh token into cookie
 
-    const isUserExist = await User.isUserExist(userId);
-    if (!isUserExist) {
-        throw new ApiError(404, 'User does not exist');
-    }
-    //generate new token
-
-    const newAccessToken = jwtHelpers.createToken(
-        {
-            id: isUserExist.id,
-            role: isUserExist.role
-        },
-        config.jwt.secret as Secret,
-        config.jwt.expires_in as string
-    );
-
-    return {
-        accessToken: newAccessToken
+    const cookieOptions = {
+        secure: config.NODE_ENV === 'production',
+        httpOnly: true
     };
-};
+
+    res.cookie('refreshToken', refreshToken, cookieOptions);
+
+    sendResponse<IRefreshTokenResponse>(res, {
+        statusCode: 200,
+        success: true,
+        message: 'User Logged successfully !',
+        data: result
+    });
+});
 
 export const AuthController = {
     loginUser,
