@@ -1,25 +1,39 @@
+import { Secret } from 'jsonwebtoken';
+import config from '../../../config';
 import ApiError from '../../../error/ApiError';
+import { jwtHelpers } from '../../../helpers/jwtHelper';
 import { User } from '../users/user.model';
 import { ILoginUser } from './auth.interface';
-import bcrypt from 'bcrypt';
 const login = async (payload: ILoginUser) => {
     const { id, password } = payload;
-    const isUserExits = User.findOne({ id }, { id: 1, password: 1, needsPasswordChange: 1 }).lean();
-    console.log(password, bcrypt);
+    const isUserExist = await User.isUserExist(id);
 
-    if (!isUserExits) {
-        throw new ApiError(404, 'User does not exits');
+    if (!isUserExist) {
+        throw new ApiError(404, 'User does not exist');
     }
-    console.log(isUserExits);
 
-    // Check the password;
-    // const isPasswordMatched = await bcrypt.compare(password, isUserExits?.password as string);
+    if (isUserExist.password && !(await User.isPasswordMatched(password, isUserExist.password))) {
+        throw new ApiError(404, 'Password is incorrect');
+    }
 
-    // console.log(isPasswordMatched);
+    const { id: userId, role, needsPasswordChange } = isUserExist;
+    const accessToken = jwtHelpers.createToken(
+        { userId, role },
+        config.jwt.secret as Secret,
+        config.jwt.expires_in as string
+    );
 
-    // if (!isPasswordMatched) {
-    //     throw new ApiError(403, 'Invalid Credential');
-    // }
+    const refreshToken = jwtHelpers.createToken(
+        { userId, role },
+        config.jwt.refresh_secret as Secret,
+        config.jwt.refresh_expires_in as string
+    );
+
+    return {
+        accessToken,
+        refreshToken,
+        needsPasswordChange
+    };
 };
 
 export const AuthService = {
