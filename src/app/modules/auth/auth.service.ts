@@ -1,7 +1,7 @@
-import { IAuth } from './auth.interface';
+import { ILoginUser } from './auth.interface';
 
-const login = (userData: IAuth) => {
-    console.log(userData);
+const login = (payload: ILoginUser) => {
+    console.log(payload);
 };
 
 export const AuthService = {
