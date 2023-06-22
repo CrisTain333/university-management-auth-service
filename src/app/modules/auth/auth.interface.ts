@@ -1,1 +1,4 @@
-// type IAuth = {};
+export type IAuth = {
+    id: string;
+    password: string;
+};
