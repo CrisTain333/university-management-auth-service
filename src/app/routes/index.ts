@@ -7,6 +7,7 @@ import { StudentRoutes } from '../modules/student/student.routes';
 import { FacultyRoutes } from '../modules/faculty/faculty.routes';
 import { ManagementDepartmentRoutes } from '../modules/managementDepartment/managementDepartment.routes';
 import { AdminRoutes } from '../modules/admin/admin.routes';
+import { AuthRoutes } from '../modules/auth/auth.routes';
 
 const router = express.Router();
 
@@ -18,5 +19,6 @@ router.use('/management-departments', ManagementDepartmentRoutes);
 router.use('/students', StudentRoutes);
 router.use('/faculties', FacultyRoutes);
 router.use('/admins', AdminRoutes);
+router.use('/auth', AuthRoutes);
 
 export default router;
