@@ -1,4 +1,0 @@
-Sat Jun 10 2023  14:43:23  error: Invalid Semester Code
-Sat Jun 10 2023  14:45:18  error: Cast to number failed for value "i" (type string) at path "year" for model "AcademicSemester"
-Sat Jun 10 2023  14:46:6  error: Error to connect Database
-Sat Jun 10 2023  14:47:32  error: Cast to number failed for value "i" (type string) at path "year" for model "AcademicSemester"
