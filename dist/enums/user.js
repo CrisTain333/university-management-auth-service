@@ -7,4 +7,7 @@ var USER_ENUM_ROLE;
     USER_ENUM_ROLE['ADMIN'] = 'admin';
     USER_ENUM_ROLE['STUDENT'] = 'student';
     USER_ENUM_ROLE['FACULTY'] = 'faculty';
-})((USER_ENUM_ROLE = exports.USER_ENUM_ROLE || (exports.USER_ENUM_ROLE = {})));
+})(
+    (USER_ENUM_ROLE =
+        exports.USER_ENUM_ROLE || (exports.USER_ENUM_ROLE = {}))
+);

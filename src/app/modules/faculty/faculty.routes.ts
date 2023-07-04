@@ -9,12 +9,20 @@ const router = express.Router();
 
 router.get(
     '/:id',
-    auth(USER_ENUM_ROLE.ADMIN, USER_ENUM_ROLE.FACULTY, USER_ENUM_ROLE.SUPER_ADMIN),
+    auth(
+        USER_ENUM_ROLE.ADMIN,
+        USER_ENUM_ROLE.FACULTY,
+        USER_ENUM_ROLE.SUPER_ADMIN
+    ),
     FacultyController.getSingleFaculty
 );
 router.get(
     '/',
-    auth(USER_ENUM_ROLE.ADMIN, USER_ENUM_ROLE.FACULTY, USER_ENUM_ROLE.SUPER_ADMIN),
+    auth(
+        USER_ENUM_ROLE.ADMIN,
+        USER_ENUM_ROLE.FACULTY,
+        USER_ENUM_ROLE.SUPER_ADMIN
+    ),
     FacultyController.getAllFaculties
 );
 

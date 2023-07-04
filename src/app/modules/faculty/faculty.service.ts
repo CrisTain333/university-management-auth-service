@@ -30,9 +30,11 @@ const getAllFaculties = async (
 
     if (Object.keys(filtersData).length) {
         andConditions.push({
-            $and: Object.entries(filtersData).map(([field, value]) => ({
-                [field]: value
-            }))
+            $and: Object.entries(filtersData).map(
+                ([field, value]) => ({
+                    [field]: value
+                })
+            )
         });
     }
 
@@ -41,7 +43,8 @@ const getAllFaculties = async (
     if (sortBy && sortOrder) {
         sortConditions[sortBy] = sortOrder;
     }
-    const whereConditions = andConditions.length > 0 ? { $and: andConditions } : {};
+    const whereConditions =
+        andConditions.length > 0 ? { $and: andConditions } : {};
 
     const result = await Faculty.find(whereConditions)
         .populate('academicDepartment')
@@ -62,7 +65,9 @@ const getAllFaculties = async (
     };
 };
 
-const getSingleFaculty = async (id: string): Promise<IFaculty | null> => {
+const getSingleFaculty = async (
+    id: string
+): Promise<IFaculty | null> => {
     const result = await Faculty.findOne({ id })
         .populate('academicDepartment')
         .populate('academicFaculty');
@@ -70,7 +75,10 @@ const getSingleFaculty = async (id: string): Promise<IFaculty | null> => {
     return result;
 };
 
-const updateFaculty = async (id: string, payload: Partial<IFaculty>): Promise<IFaculty | null> => {
+const updateFaculty = async (
+    id: string,
+    payload: Partial<IFaculty>
+): Promise<IFaculty | null> => {
     const isExist = await Faculty.findOne({ id });
 
     if (!isExist) {
@@ -84,17 +92,24 @@ const updateFaculty = async (id: string, payload: Partial<IFaculty>): Promise<IF
         Object.keys(name).forEach(key => {
             const nameKey = `name.${key}` as keyof Partial<IFaculty>;
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            (updatedFacultyData as any)[nameKey] = name[key as keyof typeof name];
+            (updatedFacultyData as any)[nameKey] =
+                name[key as keyof typeof name];
         });
     }
 
-    const result = await Faculty.findOneAndUpdate({ id }, updatedFacultyData, {
-        new: true
-    });
+    const result = await Faculty.findOneAndUpdate(
+        { id },
+        updatedFacultyData,
+        {
+            new: true
+        }
+    );
     return result;
 };
 
-const deleteFaculty = async (id: string): Promise<IFaculty | null> => {
+const deleteFaculty = async (
+    id: string
+): Promise<IFaculty | null> => {
     // check if the faculty is exist
     const isExist = await Faculty.findOne({ id });
 
@@ -107,7 +122,10 @@ const deleteFaculty = async (id: string): Promise<IFaculty | null> => {
     try {
         session.startTransaction();
         //delete faculty first
-        const faculty = await Faculty.findOneAndDelete({ id }, { session });
+        const faculty = await Faculty.findOneAndDelete(
+            { id },
+            { session }
+        );
         if (!faculty) {
             throw new ApiError(404, 'Failed to delete student');
         }

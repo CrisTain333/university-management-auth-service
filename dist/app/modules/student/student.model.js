@@ -141,4 +141,7 @@ exports.StudentSchema = new mongoose_1.Schema(
         }
     }
 );
-exports.Student = (0, mongoose_1.model)('Student', exports.StudentSchema);
+exports.Student = (0, mongoose_1.model)(
+    'Student',
+    exports.StudentSchema
+);

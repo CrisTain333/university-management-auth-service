@@ -2,12 +2,17 @@ import { SortOrder } from 'mongoose';
 
 import { paginationHelper } from '../../../helpers/paginationHelper';
 import { AcademicFaculty } from './academicFaculty.model';
-import { IAcademicFaculty, IAcademicFacultyFilters } from './academicFaculty.interface';
+import {
+    IAcademicFaculty,
+    IAcademicFacultyFilters
+} from './academicFaculty.interface';
 import { IPaginationOptions } from '../../../interface/pagination';
 import { academicFacultySearchableFields } from './academicFaculty.constant';
 import { IGenericResponse } from '../../../interface/common';
 
-const createFaculty = async (payload: IAcademicFaculty): Promise<IAcademicFaculty | null> => {
+const createFaculty = async (
+    payload: IAcademicFaculty
+): Promise<IAcademicFaculty | null> => {
     const result = await AcademicFaculty.create(payload);
     return result;
 };
@@ -35,9 +40,11 @@ const getAllFaculties = async (
 
     if (Object.keys(filtersData).length) {
         andConditions.push({
-            $and: Object.entries(filtersData).map(([field, value]) => ({
-                [field]: value
-            }))
+            $and: Object.entries(filtersData).map(
+                ([field, value]) => ({
+                    [field]: value
+                })
+            )
         });
     }
 
@@ -46,7 +53,8 @@ const getAllFaculties = async (
     if (sortBy && sortOrder) {
         sortConditions[sortBy] = sortOrder;
     }
-    const whereConditions = andConditions.length > 0 ? { $and: andConditions } : {};
+    const whereConditions =
+        andConditions.length > 0 ? { $and: andConditions } : {};
 
     const result = await AcademicFaculty.find(whereConditions)
         .sort(sortConditions)
@@ -65,7 +73,9 @@ const getAllFaculties = async (
     };
 };
 
-const getSingleFaculty = async (id: string): Promise<IAcademicFaculty | null> => {
+const getSingleFaculty = async (
+    id: string
+): Promise<IAcademicFaculty | null> => {
     const result = await AcademicFaculty.findById(id);
     return result;
 };
@@ -74,13 +84,19 @@ const updateFaculty = async (
     id: string,
     payload: Partial<IAcademicFaculty>
 ): Promise<IAcademicFaculty | null> => {
-    const result = await AcademicFaculty.findOneAndUpdate({ _id: id }, payload, {
-        new: true
-    });
+    const result = await AcademicFaculty.findOneAndUpdate(
+        { _id: id },
+        payload,
+        {
+            new: true
+        }
+    );
     return result;
 };
 
-const deleteByIdFromDB = async (id: string): Promise<IAcademicFaculty | null> => {
+const deleteByIdFromDB = async (
+    id: string
+): Promise<IAcademicFaculty | null> => {
     const result = await AcademicFaculty.findByIdAndDelete(id);
     return result;
 };

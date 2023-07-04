@@ -9,7 +9,12 @@ import handleZodError from '../error/zodErrorHandler';
 // import { errorLogger } from '../shared/logger';
 import handleCastError from '../error/handleCastError';
 
-const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
+const globalErrorHandler: ErrorRequestHandler = (
+    error,
+    req,
+    res,
+    next
+) => {
     // eslint-disable-next-line no-unused-expressions
     config.NODE_ENV === 'development'
         ? console.log(`🐱‍🏍 globalErrorHandler ~~`, { error })
@@ -61,7 +66,10 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
         success: false,
         message,
         errorMessages,
-        stack: config.NODE_ENV !== 'production' ? error?.stack : undefined
+        stack:
+            config.NODE_ENV !== 'production'
+                ? error?.stack
+                : undefined
     });
 };
 export default globalErrorHandler;

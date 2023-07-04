@@ -25,9 +25,16 @@ var __awaiter =
                 }
             }
             function step(result) {
-                result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+                result.done
+                    ? resolve(result.value)
+                    : adopt(result.value).then(fulfilled, rejected);
             }
-            step((generator = generator.apply(thisArg, _arguments || [])).next());
+            step(
+                (generator = generator.apply(
+                    thisArg,
+                    _arguments || []
+                )).next()
+            );
         });
     };
 var __rest =
@@ -35,10 +42,27 @@ var __rest =
     function (s, e) {
         var t = {};
         for (var p in s)
-            if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
-        if (s != null && typeof Object.getOwnPropertySymbols === 'function')
-            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-                if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+            if (
+                Object.prototype.hasOwnProperty.call(s, p) &&
+                e.indexOf(p) < 0
+            )
+                t[p] = s[p];
+        if (
+            s != null &&
+            typeof Object.getOwnPropertySymbols === 'function'
+        )
+            for (
+                var i = 0, p = Object.getOwnPropertySymbols(s);
+                i < p.length;
+                i++
+            ) {
+                if (
+                    e.indexOf(p[i]) < 0 &&
+                    Object.prototype.propertyIsEnumerable.call(
+                        s,
+                        p[i]
+                    )
+                )
                     t[p[i]] = s[p[i]];
             }
         return t;
@@ -51,7 +75,9 @@ const academicDepartment_model_1 = require('./academicDepartment.model');
 const getAllDepartments = (filters, paginationOptions) =>
     __awaiter(void 0, void 0, void 0, function* () {
         const { limit, page, skip, sortBy, sortOrder } =
-            paginationHelper_1.paginationHelper.calculatePagination(paginationOptions);
+            paginationHelper_1.paginationHelper.calculatePagination(
+                paginationOptions
+            );
         const { searchTerm } = filters,
             filtersData = __rest(filters, ['searchTerm']);
         const andConditions = [];
@@ -69,22 +95,29 @@ const getAllDepartments = (filters, paginationOptions) =>
         }
         if (Object.keys(filtersData).length) {
             andConditions.push({
-                $and: Object.entries(filtersData).map(([field, value]) => ({
-                    [field]: value
-                }))
+                $and: Object.entries(filtersData).map(
+                    ([field, value]) => ({
+                        [field]: value
+                    })
+                )
             });
         }
         const sortConditions = {};
         if (sortBy && sortOrder) {
             sortConditions[sortBy] = sortOrder;
         }
-        const whereConditions = andConditions.length > 0 ? { $and: andConditions } : {};
-        const result = yield academicDepartment_model_1.AcademicDepartment.find(whereConditions)
-            .populate('academicFaculty')
-            .sort(sortConditions)
-            .skip(skip)
-            .limit(limit);
-        const total = yield academicDepartment_model_1.AcademicDepartment.countDocuments();
+        const whereConditions =
+            andConditions.length > 0 ? { $and: andConditions } : {};
+        const result =
+            yield academicDepartment_model_1.AcademicDepartment.find(
+                whereConditions
+            )
+                .populate('academicFaculty')
+                .sort(sortConditions)
+                .skip(skip)
+                .limit(limit);
+        const total =
+            yield academicDepartment_model_1.AcademicDepartment.countDocuments();
         return {
             meta: {
                 page,
@@ -96,32 +129,38 @@ const getAllDepartments = (filters, paginationOptions) =>
     });
 const createDepartment = payload =>
     __awaiter(void 0, void 0, void 0, function* () {
-        const result = (yield academicDepartment_model_1.AcademicDepartment.create(
-            payload
-        )).populate('academicFaculty');
+        const result =
+            (yield academicDepartment_model_1.AcademicDepartment.create(
+                payload
+            )).populate('academicFaculty');
         return result;
     });
 const getSingleDepartment = id =>
     __awaiter(void 0, void 0, void 0, function* () {
-        const result = yield academicDepartment_model_1.AcademicDepartment.findById(id).populate(
-            'academicFaculty'
-        );
+        const result =
+            yield academicDepartment_model_1.AcademicDepartment.findById(
+                id
+            ).populate('academicFaculty');
         return result;
     });
 const updateDepartment = (id, payload) =>
     __awaiter(void 0, void 0, void 0, function* () {
-        const result = yield academicDepartment_model_1.AcademicDepartment.findOneAndUpdate(
-            { _id: id },
-            payload,
-            {
-                new: true
-            }
-        ).populate('academicFaculty');
+        const result =
+            yield academicDepartment_model_1.AcademicDepartment.findOneAndUpdate(
+                { _id: id },
+                payload,
+                {
+                    new: true
+                }
+            ).populate('academicFaculty');
         return result;
     });
 const deleteDepartment = id =>
     __awaiter(void 0, void 0, void 0, function* () {
-        const result = yield academicDepartment_model_1.AcademicDepartment.findByIdAndDelete(id);
+        const result =
+            yield academicDepartment_model_1.AcademicDepartment.findByIdAndDelete(
+                id
+            );
         return result;
     });
 exports.AcademicDepartmentService = {

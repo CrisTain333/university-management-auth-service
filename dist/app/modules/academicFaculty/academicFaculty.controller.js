@@ -25,9 +25,16 @@ var __awaiter =
                 }
             }
             function step(result) {
-                result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+                result.done
+                    ? resolve(result.value)
+                    : adopt(result.value).then(fulfilled, rejected);
             }
-            step((generator = generator.apply(thisArg, _arguments || [])).next());
+            step(
+                (generator = generator.apply(
+                    thisArg,
+                    _arguments || []
+                )).next()
+            );
         });
     };
 var __rest =
@@ -35,10 +42,27 @@ var __rest =
     function (s, e) {
         var t = {};
         for (var p in s)
-            if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
-        if (s != null && typeof Object.getOwnPropertySymbols === 'function')
-            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-                if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+            if (
+                Object.prototype.hasOwnProperty.call(s, p) &&
+                e.indexOf(p) < 0
+            )
+                t[p] = s[p];
+        if (
+            s != null &&
+            typeof Object.getOwnPropertySymbols === 'function'
+        )
+            for (
+                var i = 0, p = Object.getOwnPropertySymbols(s);
+                i < p.length;
+                i++
+            ) {
+                if (
+                    e.indexOf(p[i]) < 0 &&
+                    Object.prototype.propertyIsEnumerable.call(
+                        s,
+                        p[i]
+                    )
+                )
                     t[p[i]] = s[p[i]];
             }
         return t;
@@ -50,18 +74,23 @@ var __importDefault =
     };
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.AcademicFacultyController = void 0;
-const catchAsync_1 = __importDefault(require('../../../shared/catchAsync'));
+const catchAsync_1 = __importDefault(
+    require('../../../shared/catchAsync')
+);
 const pick_1 = __importDefault(require('../../../shared/pick'));
-const sendResponse_1 = __importDefault(require('../../../shared/sendResponse'));
+const sendResponse_1 = __importDefault(
+    require('../../../shared/sendResponse')
+);
 const academicFaculty_service_1 = require('./academicFaculty.service');
 const academicFaculty_constant_1 = require('./academicFaculty.constant');
 const pagination_1 = require('../../../constant/pagination');
 const createFaculty = (0, catchAsync_1.default)((req, res) =>
     __awaiter(void 0, void 0, void 0, function* () {
         const academicFacultyData = __rest(req.body, []);
-        const result = yield academicFaculty_service_1.AcademicFacultyService.createFaculty(
-            academicFacultyData
-        );
+        const result =
+            yield academicFaculty_service_1.AcademicFacultyService.createFaculty(
+                academicFacultyData
+            );
         (0, sendResponse_1.default)(res, {
             statusCode: 200,
             success: true,
@@ -76,11 +105,15 @@ const getAllFaculties = (0, catchAsync_1.default)((req, res) =>
             req.query,
             academicFaculty_constant_1.academicFacultyFilterableFields
         );
-        const paginationOptions = (0, pick_1.default)(req.query, pagination_1.paginationFields);
-        const result = yield academicFaculty_service_1.AcademicFacultyService.getAllFaculties(
-            filters,
-            paginationOptions
+        const paginationOptions = (0, pick_1.default)(
+            req.query,
+            pagination_1.paginationFields
         );
+        const result =
+            yield academicFaculty_service_1.AcademicFacultyService.getAllFaculties(
+                filters,
+                paginationOptions
+            );
         (0, sendResponse_1.default)(res, {
             statusCode: 200,
             success: true,
@@ -93,7 +126,10 @@ const getAllFaculties = (0, catchAsync_1.default)((req, res) =>
 const getSingleFaculty = (0, catchAsync_1.default)((req, res) =>
     __awaiter(void 0, void 0, void 0, function* () {
         const { id } = req.params;
-        const result = yield academicFaculty_service_1.AcademicFacultyService.getSingleFaculty(id);
+        const result =
+            yield academicFaculty_service_1.AcademicFacultyService.getSingleFaculty(
+                id
+            );
         (0, sendResponse_1.default)(res, {
             statusCode: 200,
             success: true,
@@ -107,10 +143,11 @@ const updateFaculty = (0, catchAsync_1.default)(
         __awaiter(void 0, void 0, void 0, function* () {
             const { id } = req.params;
             const updatedData = req.body;
-            const result = yield academicFaculty_service_1.AcademicFacultyService.updateFaculty(
-                id,
-                updatedData
-            );
+            const result =
+                yield academicFaculty_service_1.AcademicFacultyService.updateFaculty(
+                    id,
+                    updatedData
+                );
             (0, sendResponse_1.default)(res, {
                 statusCode: 200,
                 success: true,
@@ -123,7 +160,10 @@ const updateFaculty = (0, catchAsync_1.default)(
 const deleteFaculty = (0, catchAsync_1.default)((req, res) =>
     __awaiter(void 0, void 0, void 0, function* () {
         const { id } = req.params;
-        const result = yield academicFaculty_service_1.AcademicFacultyService.deleteByIdFromDB(id);
+        const result =
+            yield academicFaculty_service_1.AcademicFacultyService.deleteByIdFromDB(
+                id
+            );
         (0, sendResponse_1.default)(res, {
             statusCode: 200,
             success: true,

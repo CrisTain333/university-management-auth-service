@@ -25,9 +25,16 @@ var __awaiter =
                 }
             }
             function step(result) {
-                result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+                result.done
+                    ? resolve(result.value)
+                    : adopt(result.value).then(fulfilled, rejected);
             }
-            step((generator = generator.apply(thisArg, _arguments || [])).next());
+            step(
+                (generator = generator.apply(
+                    thisArg,
+                    _arguments || []
+                )).next()
+            );
         });
     };
 var __importDefault =
@@ -41,7 +48,9 @@ exports.generateFacultyId =
     exports.generateStudentId =
     exports.findLastStudentId =
         void 0;
-const ApiError_1 = __importDefault(require('../../../error/ApiError'));
+const ApiError_1 = __importDefault(
+    require('../../../error/ApiError')
+);
 const user_model_1 = require('./user.model');
 const findLastStudentId = () =>
     __awaiter(void 0, void 0, void 0, function* () {
@@ -55,7 +64,11 @@ const findLastStudentId = () =>
                 createdAt: -1
             })
             .lean();
-        return (lastStudent === null || lastStudent === void 0 ? void 0 : lastStudent.id)
+        return (
+            lastStudent === null || lastStudent === void 0
+                ? void 0
+                : lastStudent.id
+        )
             ? lastStudent.id.substring(4)
             : undefined;
     });
@@ -63,9 +76,12 @@ exports.findLastStudentId = findLastStudentId;
 const generateStudentId = academicSemester =>
     __awaiter(void 0, void 0, void 0, function* () {
         const currentId =
-            (yield (0, exports.findLastStudentId)()) || (0).toString().padStart(5, '0'); //00000
+            (yield (0, exports.findLastStudentId)()) ||
+            (0).toString().padStart(5, '0'); //00000
         //increment by 1
-        let incrementedId = (parseInt(currentId) + 1).toString().padStart(5, '0');
+        let incrementedId = (parseInt(currentId) + 1)
+            .toString()
+            .padStart(5, '0');
         if (academicSemester) {
             incrementedId = `${academicSemester.year.substring(2)}${
                 academicSemester.code
@@ -83,12 +99,19 @@ const generateStudentId = academicSemester =>
 exports.generateStudentId = generateStudentId;
 const findLastFacultyId = () =>
     __awaiter(void 0, void 0, void 0, function* () {
-        const lastFaculty = yield user_model_1.User.findOne({ role: 'faculty' }, { id: 1, _id: 0 })
+        const lastFaculty = yield user_model_1.User.findOne(
+            { role: 'faculty' },
+            { id: 1, _id: 0 }
+        )
             .sort({
                 createdAt: -1
             })
             .lean();
-        return (lastFaculty === null || lastFaculty === void 0 ? void 0 : lastFaculty.id)
+        return (
+            lastFaculty === null || lastFaculty === void 0
+                ? void 0
+                : lastFaculty.id
+        )
             ? lastFaculty.id.substring(2)
             : undefined;
     });
@@ -96,8 +119,11 @@ exports.findLastFacultyId = findLastFacultyId;
 const generateFacultyId = () =>
     __awaiter(void 0, void 0, void 0, function* () {
         const currentId =
-            (yield (0, exports.findLastFacultyId)()) || (0).toString().padStart(5, '0');
-        let incrementedId = (parseInt(currentId) + 1).toString().padStart(5, '0');
+            (yield (0, exports.findLastFacultyId)()) ||
+            (0).toString().padStart(5, '0');
+        let incrementedId = (parseInt(currentId) + 1)
+            .toString()
+            .padStart(5, '0');
         incrementedId = `F-${incrementedId}`;
         return incrementedId;
     });

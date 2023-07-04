@@ -25,9 +25,16 @@ var __awaiter =
                 }
             }
             function step(result) {
-                result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+                result.done
+                    ? resolve(result.value)
+                    : adopt(result.value).then(fulfilled, rejected);
             }
-            step((generator = generator.apply(thisArg, _arguments || [])).next());
+            step(
+                (generator = generator.apply(
+                    thisArg,
+                    _arguments || []
+                )).next()
+            );
         });
     };
 var __importDefault =
@@ -39,7 +46,9 @@ Object.defineProperty(exports, '__esModule', { value: true });
 exports.AcademicSemester = void 0;
 const mongoose_1 = require('mongoose');
 const academicSemester_constant_1 = require('./academicSemester.constant');
-const ApiError_1 = __importDefault(require('../../../error/ApiError'));
+const ApiError_1 = __importDefault(
+    require('../../../error/ApiError')
+);
 const academicSemesterSchema = new mongoose_1.Schema(
     {
         title: {
@@ -78,9 +87,15 @@ academicSemesterSchema.pre('save', function (next) {
             year: this.year
         });
         if (ifExits) {
-            throw new ApiError_1.default(409, 'Academic semester all ready exits');
+            throw new ApiError_1.default(
+                409,
+                'Academic semester all ready exits'
+            );
         }
         next();
     });
 });
-exports.AcademicSemester = (0, mongoose_1.model)('AcademicSemester', academicSemesterSchema);
+exports.AcademicSemester = (0, mongoose_1.model)(
+    'AcademicSemester',
+    academicSemesterSchema
+);

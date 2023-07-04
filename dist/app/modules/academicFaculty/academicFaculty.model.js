@@ -17,4 +17,7 @@ const AcademicFacultySchema = new mongoose_1.Schema(
         }
     }
 );
-exports.AcademicFaculty = (0, mongoose_1.model)('AcademicFaculty', AcademicFacultySchema);
+exports.AcademicFaculty = (0, mongoose_1.model)(
+    'AcademicFaculty',
+    AcademicFacultySchema
+);

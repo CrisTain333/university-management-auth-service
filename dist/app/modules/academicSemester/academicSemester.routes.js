@@ -7,7 +7,9 @@ var __importDefault =
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.SemesterRoute = void 0;
 const express_1 = __importDefault(require('express'));
-const validateRequest_1 = __importDefault(require('../../../middleware/validateRequest'));
+const validateRequest_1 = __importDefault(
+    require('../../../middleware/validateRequest')
+);
 const academicSemester_validate_1 = require('./academicSemester.validate');
 const academicSemester_controller_1 = require('./academicSemester.controller');
 const router = express_1.default.Router();
@@ -15,22 +17,38 @@ const router = express_1.default.Router();
 router.post(
     '/create-semester',
     (0, validateRequest_1.default)(
-        academicSemester_validate_1.AcademicSemesterValidate.academicSemesterZodSchema
+        academicSemester_validate_1.AcademicSemesterValidate
+            .academicSemesterZodSchema
     ),
-    academicSemester_controller_1.AcademySemesterController.createAcademicSemester
+    academicSemester_controller_1.AcademySemesterController
+        .createAcademicSemester
 );
 // Get single semester
-router.get('/:id', academicSemester_controller_1.AcademySemesterController.getSingleSemester);
+router.get(
+    '/:id',
+    academicSemester_controller_1.AcademySemesterController
+        .getSingleSemester
+);
 //Update  semesters
 router.patch(
     '/:id',
     (0, validateRequest_1.default)(
-        academicSemester_validate_1.AcademicSemesterValidate.updateAcademicSemesterZodSchema
+        academicSemester_validate_1.AcademicSemesterValidate
+            .updateAcademicSemesterZodSchema
     ),
-    academicSemester_controller_1.AcademySemesterController.updateSemester
+    academicSemester_controller_1.AcademySemesterController
+        .updateSemester
 );
 // delete semester
-router.delete('/:id', academicSemester_controller_1.AcademySemesterController.deleteSemester);
+router.delete(
+    '/:id',
+    academicSemester_controller_1.AcademySemesterController
+        .deleteSemester
+);
 //Get semesters
-router.get('/', academicSemester_controller_1.AcademySemesterController.getAllSemesters);
+router.get(
+    '/',
+    academicSemester_controller_1.AcademySemesterController
+        .getAllSemesters
+);
 exports.SemesterRoute = router;

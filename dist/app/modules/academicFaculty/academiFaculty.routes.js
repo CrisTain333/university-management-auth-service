@@ -9,23 +9,41 @@ exports.AcademicFacultyRoutes = void 0;
 const express_1 = __importDefault(require('express'));
 const academicFaculty_controller_1 = require('./academicFaculty.controller');
 const academicFaculty_validations_1 = require('./academicFaculty.validations');
-const validateRequest_1 = __importDefault(require('../../../middleware/validateRequest'));
+const validateRequest_1 = __importDefault(
+    require('../../../middleware/validateRequest')
+);
 const router = express_1.default.Router();
 router.post(
     '/create-faculty',
     (0, validateRequest_1.default)(
-        academicFaculty_validations_1.AcademicFacultyValidation.createFacultyZodSchema
+        academicFaculty_validations_1.AcademicFacultyValidation
+            .createFacultyZodSchema
     ),
-    academicFaculty_controller_1.AcademicFacultyController.createFaculty
+    academicFaculty_controller_1.AcademicFacultyController
+        .createFaculty
 );
-router.get('/:id', academicFaculty_controller_1.AcademicFacultyController.getSingleFaculty);
+router.get(
+    '/:id',
+    academicFaculty_controller_1.AcademicFacultyController
+        .getSingleFaculty
+);
 router.patch(
     '/:id',
     (0, validateRequest_1.default)(
-        academicFaculty_validations_1.AcademicFacultyValidation.updateFacultyZodSchema
+        academicFaculty_validations_1.AcademicFacultyValidation
+            .updateFacultyZodSchema
     ),
-    academicFaculty_controller_1.AcademicFacultyController.updateFaculty
+    academicFaculty_controller_1.AcademicFacultyController
+        .updateFaculty
 );
-router.delete('/:id', academicFaculty_controller_1.AcademicFacultyController.deleteFaculty);
-router.get('/', academicFaculty_controller_1.AcademicFacultyController.getAllFaculties);
+router.delete(
+    '/:id',
+    academicFaculty_controller_1.AcademicFacultyController
+        .deleteFaculty
+);
+router.get(
+    '/',
+    academicFaculty_controller_1.AcademicFacultyController
+        .getAllFaculties
+);
 exports.AcademicFacultyRoutes = router;

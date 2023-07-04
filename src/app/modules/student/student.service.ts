@@ -32,9 +32,11 @@ const getAllStudents = async (
 
     if (Object.keys(filtersData).length) {
         andConditions.push({
-            $and: Object.entries(filtersData).map(([field, value]) => ({
-                [field]: value
-            }))
+            $and: Object.entries(filtersData).map(
+                ([field, value]) => ({
+                    [field]: value
+                })
+            )
         });
     }
 
@@ -43,7 +45,8 @@ const getAllStudents = async (
     if (sortBy && sortOrder) {
         sortConditions[sortBy] = sortOrder;
     }
-    const whereConditions = andConditions.length > 0 ? { $and: andConditions } : {};
+    const whereConditions =
+        andConditions.length > 0 ? { $and: andConditions } : {};
 
     const result = await Student.find(whereConditions)
         .populate('academicSemester')
@@ -65,7 +68,9 @@ const getAllStudents = async (
     };
 };
 
-const getSingleStudent = async (id: string): Promise<IStudent | null> => {
+const getSingleStudent = async (
+    id: string
+): Promise<IStudent | null> => {
     const result = await Student.findById(id)
         .populate('academicSemester')
         .populate('academicDepartment')
@@ -73,7 +78,10 @@ const getSingleStudent = async (id: string): Promise<IStudent | null> => {
     return result;
 };
 
-const updateStudent = async (id: string, payload: Partial<IStudent>): Promise<IStudent | null> => {
+const updateStudent = async (
+    id: string,
+    payload: Partial<IStudent>
+): Promise<IStudent | null> => {
     const isExist = await Student.findOne({ id });
 
     if (!isExist) {
@@ -96,31 +104,41 @@ const updateStudent = async (id: string, payload: Partial<IStudent>): Promise<IS
     if (name && Object.keys(name).length > 0) {
         Object.keys(name).forEach(key => {
             const nameKey = `name.${key}` as keyof Partial<IStudent>; // `name.fisrtName`
-            (updatedStudentData as any)[nameKey] = name[key as keyof typeof name];
+            (updatedStudentData as any)[nameKey] =
+                name[key as keyof typeof name];
         });
     }
     if (guardian && Object.keys(guardian).length > 0) {
         Object.keys(guardian).forEach(key => {
-            const guardianKey = `guardian.${key}` as keyof Partial<IStudent>; // `guardian.fisrtguardian`
-            (updatedStudentData as any)[guardianKey] = guardian[key as keyof typeof guardian]; // updatedStudentData['guardian.motherContactNo']=guardian[motherContactNo]
+            const guardianKey =
+                `guardian.${key}` as keyof Partial<IStudent>; // `guardian.fisrtguardian`
+            (updatedStudentData as any)[guardianKey] =
+                guardian[key as keyof typeof guardian]; // updatedStudentData['guardian.motherContactNo']=guardian[motherContactNo]
             // updatedStudentData --> object create --> guardian : { motherContactNo: 0177}
         });
     }
     if (localGuardian && Object.keys(localGuardian).length > 0) {
         Object.keys(localGuardian).forEach(key => {
-            const localGuradianKey = `localGuardian.${key}` as keyof Partial<IStudent>; // `localGuardian.fisrtName`
+            const localGuradianKey =
+                `localGuardian.${key}` as keyof Partial<IStudent>; // `localGuardian.fisrtName`
             (updatedStudentData as any)[localGuradianKey] =
                 localGuardian[key as keyof typeof localGuardian];
         });
     }
 
-    const result = await Student.findOneAndUpdate({ id }, updatedStudentData, {
-        new: true
-    });
+    const result = await Student.findOneAndUpdate(
+        { id },
+        updatedStudentData,
+        {
+            new: true
+        }
+    );
     return result;
 };
 
-const deleteStudent = async (id: string): Promise<IStudent | null> => {
+const deleteStudent = async (
+    id: string
+): Promise<IStudent | null> => {
     const result = await Student.findByIdAndDelete(id)
         .populate('academicSemester')
         .populate('academicDepartment')

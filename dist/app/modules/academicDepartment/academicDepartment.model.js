@@ -22,4 +22,7 @@ const AcademicDepartmentSchema = new mongoose_1.Schema(
         }
     }
 );
-exports.AcademicDepartment = (0, mongoose_1.model)('AcademicDepartment', AcademicDepartmentSchema);
+exports.AcademicDepartment = (0, mongoose_1.model)(
+    'AcademicDepartment',
+    AcademicDepartmentSchema
+);

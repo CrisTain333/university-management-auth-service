@@ -25,9 +25,16 @@ var __awaiter =
                 }
             }
             function step(result) {
-                result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+                result.done
+                    ? resolve(result.value)
+                    : adopt(result.value).then(fulfilled, rejected);
             }
-            step((generator = generator.apply(thisArg, _arguments || [])).next());
+            step(
+                (generator = generator.apply(
+                    thisArg,
+                    _arguments || []
+                )).next()
+            );
         });
     };
 var __importDefault =
@@ -37,20 +44,31 @@ var __importDefault =
     };
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.StudentController = void 0;
-const catchAsync_1 = __importDefault(require('../../../shared/catchAsync'));
-const sendResponse_1 = __importDefault(require('../../../shared/sendResponse'));
+const catchAsync_1 = __importDefault(
+    require('../../../shared/catchAsync')
+);
+const sendResponse_1 = __importDefault(
+    require('../../../shared/sendResponse')
+);
 const pagination_1 = require('../../../constant/pagination');
 const pick_1 = __importDefault(require('../../../shared/pick'));
 const student_constant_1 = require('./student.constant');
 const student_service_1 = require('./student.service');
 const getAllStudents = (0, catchAsync_1.default)((req, res) =>
     __awaiter(void 0, void 0, void 0, function* () {
-        const filters = (0, pick_1.default)(req.query, student_constant_1.studentFilterableFields);
-        const paginationOptions = (0, pick_1.default)(req.query, pagination_1.paginationFields);
-        const result = yield student_service_1.StudentService.getAllStudents(
-            filters,
-            paginationOptions
+        const filters = (0, pick_1.default)(
+            req.query,
+            student_constant_1.studentFilterableFields
         );
+        const paginationOptions = (0, pick_1.default)(
+            req.query,
+            pagination_1.paginationFields
+        );
+        const result =
+            yield student_service_1.StudentService.getAllStudents(
+                filters,
+                paginationOptions
+            );
         (0, sendResponse_1.default)(res, {
             statusCode: 200,
             success: true,
@@ -63,7 +81,10 @@ const getAllStudents = (0, catchAsync_1.default)((req, res) =>
 const getSingleStudent = (0, catchAsync_1.default)((req, res) =>
     __awaiter(void 0, void 0, void 0, function* () {
         const id = req.params.id;
-        const result = yield student_service_1.StudentService.getSingleStudent(id);
+        const result =
+            yield student_service_1.StudentService.getSingleStudent(
+                id
+            );
         (0, sendResponse_1.default)(res, {
             statusCode: 200,
             success: true,
@@ -76,7 +97,11 @@ const updateStudent = (0, catchAsync_1.default)((req, res) =>
     __awaiter(void 0, void 0, void 0, function* () {
         const id = req.params.id;
         const updatedData = req.body;
-        const result = yield student_service_1.StudentService.updateStudent(id, updatedData);
+        const result =
+            yield student_service_1.StudentService.updateStudent(
+                id,
+                updatedData
+            );
         (0, sendResponse_1.default)(res, {
             statusCode: 200,
             success: true,
@@ -88,7 +113,8 @@ const updateStudent = (0, catchAsync_1.default)((req, res) =>
 const deleteStudent = (0, catchAsync_1.default)((req, res) =>
     __awaiter(void 0, void 0, void 0, function* () {
         const id = req.params.id;
-        const result = yield student_service_1.StudentService.deleteStudent(id);
+        const result =
+            yield student_service_1.StudentService.deleteStudent(id);
         (0, sendResponse_1.default)(res, {
             statusCode: 200,
             success: true,

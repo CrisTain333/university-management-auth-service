@@ -39,9 +39,11 @@ const getAllDepartments = async (
 
     if (Object.keys(filtersData).length) {
         andConditions.push({
-            $and: Object.entries(filtersData).map(([field, value]) => ({
-                [field]: value
-            }))
+            $and: Object.entries(filtersData).map(
+                ([field, value]) => ({
+                    [field]: value
+                })
+            )
         });
     }
 
@@ -50,7 +52,8 @@ const getAllDepartments = async (
     if (sortBy && sortOrder) {
         sortConditions[sortBy] = sortOrder;
     }
-    const whereConditions = andConditions.length > 0 ? { $and: andConditions } : {};
+    const whereConditions =
+        andConditions.length > 0 ? { $and: andConditions } : {};
 
     const result = await ManagementDepartment.find(whereConditions)
         .sort(sortConditions)
@@ -69,7 +72,9 @@ const getAllDepartments = async (
     };
 };
 
-const getSingleDepartment = async (id: string): Promise<IManagementDepartment | null> => {
+const getSingleDepartment = async (
+    id: string
+): Promise<IManagementDepartment | null> => {
     const result = await ManagementDepartment.findById(id);
     return result;
 };
@@ -78,13 +83,19 @@ const updateDepartment = async (
     id: string,
     payload: Partial<IManagementDepartment>
 ): Promise<IManagementDepartment | null> => {
-    const result = await ManagementDepartment.findOneAndUpdate({ _id: id }, payload, {
-        new: true
-    });
+    const result = await ManagementDepartment.findOneAndUpdate(
+        { _id: id },
+        payload,
+        {
+            new: true
+        }
+    );
     return result;
 };
 
-const deleteDepartment = async (id: string): Promise<IManagementDepartment | null> => {
+const deleteDepartment = async (
+    id: string
+): Promise<IManagementDepartment | null> => {
     const result = await ManagementDepartment.findByIdAndDelete(id);
     return result;
 };

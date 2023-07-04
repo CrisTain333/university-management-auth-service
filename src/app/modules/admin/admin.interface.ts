@@ -18,7 +18,15 @@ export type IAdmin = {
     gender?: 'male' | 'female';
     permanentAddress?: string;
     presentAddress?: string;
-    bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
+    bloodGroup?:
+        | 'A+'
+        | 'A-'
+        | 'B+'
+        | 'B-'
+        | 'AB+'
+        | 'AB-'
+        | 'O+'
+        | 'O-';
 
     managementDepartment: Types.ObjectId | IManagementDepartment;
     designation: string;
@@ -33,7 +41,15 @@ export type IAdminFilters = {
     contactNo?: string;
     emergencyContactNo?: string;
     gender?: 'male' | 'female';
-    bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
+    bloodGroup?:
+        | 'A+'
+        | 'A-'
+        | 'B+'
+        | 'B-'
+        | 'AB+'
+        | 'AB-'
+        | 'O+'
+        | 'O-';
     managementDepartment?: string;
     designation?: string;
 };

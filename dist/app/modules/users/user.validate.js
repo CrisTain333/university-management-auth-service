@@ -33,7 +33,9 @@ const userZodSchema = zod_1.z.object({
             emergencyContactNo: zod_1.z.string({
                 required_error: 'Emergency contact number is required'
             }),
-            bloodGroup: zod_1.z.enum([...student_constant_1.bloodGroup]).optional(),
+            bloodGroup: zod_1.z
+                .enum([...student_constant_1.bloodGroup])
+                .optional(),
             presentAddress: zod_1.z.string({
                 required_error: 'Present address is required'
             }),
@@ -57,7 +59,8 @@ const userZodSchema = zod_1.z.object({
                     required_error: 'Father occupation is required'
                 }),
                 fatherContactNo: zod_1.z.string({
-                    required_error: 'Father contact number is required'
+                    required_error:
+                        'Father contact number is required'
                 }),
                 motherName: zod_1.z.string({
                     required_error: 'Mother name is required'
@@ -66,7 +69,8 @@ const userZodSchema = zod_1.z.object({
                     required_error: 'Mother occupation is required'
                 }),
                 motherContactNo: zod_1.z.string({
-                    required_error: 'Mother contact number is required'
+                    required_error:
+                        'Mother contact number is required'
                 }),
                 address: zod_1.z.string({
                     required_error: 'Guardian address is required'
@@ -77,13 +81,16 @@ const userZodSchema = zod_1.z.object({
                     required_error: 'Local guardian name is required'
                 }),
                 occupation: zod_1.z.string({
-                    required_error: 'Local guardian occupation is required'
+                    required_error:
+                        'Local guardian occupation is required'
                 }),
                 contactNo: zod_1.z.string({
-                    required_error: 'Local guardian contact number is required'
+                    required_error:
+                        'Local guardian contact number is required'
                 }),
                 address: zod_1.z.string({
-                    required_error: 'Local guardian address is required'
+                    required_error:
+                        'Local guardian address is required'
                 })
             }),
             profileImage: zod_1.z.string().optional()

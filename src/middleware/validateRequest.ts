@@ -3,7 +3,11 @@ import { AnyZodObject, ZodEffects } from 'zod';
 
 const validateRequest =
     (schema: AnyZodObject | ZodEffects<AnyZodObject>) =>
-    async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<void> => {
         try {
             await schema.parseAsync({
                 body: req.body,

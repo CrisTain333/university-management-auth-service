@@ -1,7 +1,13 @@
 import { Schema, model } from 'mongoose';
-import { IManagementDepartment, ManagementDepartmentModel } from './managementDepartment.interface';
+import {
+    IManagementDepartment,
+    ManagementDepartmentModel
+} from './managementDepartment.interface';
 
-const ManagementDepartmentSchema = new Schema<IManagementDepartment, ManagementDepartmentModel>(
+const ManagementDepartmentSchema = new Schema<
+    IManagementDepartment,
+    ManagementDepartmentModel
+>(
     {
         title: {
             type: String,
@@ -17,7 +23,7 @@ const ManagementDepartmentSchema = new Schema<IManagementDepartment, ManagementD
     }
 );
 
-export const ManagementDepartment = model<IManagementDepartment, ManagementDepartmentModel>(
-    'ManagementDepartment',
-    ManagementDepartmentSchema
-);
+export const ManagementDepartment = model<
+    IManagementDepartment,
+    ManagementDepartmentModel
+>('ManagementDepartment', ManagementDepartmentSchema);

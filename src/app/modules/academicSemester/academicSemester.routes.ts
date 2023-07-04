@@ -6,7 +6,9 @@ const router = express.Router();
 // Create semester
 router.post(
     '/create-semester',
-    validateRequest(AcademicSemesterValidate.academicSemesterZodSchema),
+    validateRequest(
+        AcademicSemesterValidate.academicSemesterZodSchema
+    ),
     AcademySemesterController.createAcademicSemester
 );
 
@@ -16,7 +18,9 @@ router.get('/:id', AcademySemesterController.getSingleSemester);
 //Update  semesters
 router.patch(
     '/:id',
-    validateRequest(AcademicSemesterValidate.updateAcademicSemesterZodSchema),
+    validateRequest(
+        AcademicSemesterValidate.updateAcademicSemesterZodSchema
+    ),
     AcademySemesterController.updateSemester
 );
 

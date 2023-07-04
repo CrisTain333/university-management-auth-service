@@ -8,7 +8,9 @@ Object.defineProperty(exports, '__esModule', { value: true });
 exports.errorLogger = exports.logger = void 0;
 const path_1 = __importDefault(require('path'));
 const winston_1 = require('winston');
-const winston_daily_rotate_file_1 = __importDefault(require('winston-daily-rotate-file'));
+const winston_daily_rotate_file_1 = __importDefault(
+    require('winston-daily-rotate-file')
+);
 const { printf, combine, timestamp } = winston_1.format;
 const myFormat = printf(({ level, message }) => {
     const date = new Date();
@@ -23,7 +25,12 @@ const logger = (0, winston_1.createLogger)({
     transports: [
         new winston_1.transports.Console(),
         new winston_daily_rotate_file_1.default({
-            filename: path_1.default.join(process.cwd(), 'logs', 'success', '%DATE%-success.log'),
+            filename: path_1.default.join(
+                process.cwd(),
+                'logs',
+                'success',
+                '%DATE%-success.log'
+            ),
             datePattern: 'YYYY-MM-DD-HH',
             zippedArchive: true,
             maxSize: '20m',
@@ -38,7 +45,12 @@ const errorLogger = (0, winston_1.createLogger)({
     transports: [
         new winston_1.transports.Console(),
         new winston_daily_rotate_file_1.default({
-            filename: path_1.default.join(process.cwd(), 'logs', 'error', '%DATE%-error.log'),
+            filename: path_1.default.join(
+                process.cwd(),
+                'logs',
+                'error',
+                '%DATE%-error.log'
+            ),
             datePattern: 'YYYY-MM-DD-HH',
             zippedArchive: true,
             maxSize: '20m',

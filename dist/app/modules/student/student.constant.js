@@ -6,7 +6,16 @@ exports.studentFilterableFields =
     exports.gender =
         void 0;
 exports.gender = ['male', 'female'];
-exports.bloodGroup = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+exports.bloodGroup = [
+    'A+',
+    'A-',
+    'B+',
+    'B-',
+    'AB+',
+    'AB-',
+    'O+',
+    'O-'
+];
 exports.studentSearchableFields = [
     'id',
     'email',
