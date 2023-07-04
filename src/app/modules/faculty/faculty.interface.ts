@@ -19,7 +19,15 @@ export type IFaculty = {
     gender?: 'male' | 'female';
     permanentAddress?: string;
     presentAddress?: string;
-    bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
+    bloodGroup?:
+        | 'A+'
+        | 'A-'
+        | 'B+'
+        | 'B-'
+        | 'AB+'
+        | 'AB-'
+        | 'O+'
+        | 'O-';
 
     academicDepartment: Types.ObjectId | IAcademicDepartment;
     academicFaculty: Types.ObjectId | IAcademicFaculty;
@@ -35,7 +43,15 @@ export type IFacultyFilters = {
     contactNo?: string;
     emergencyContactNo?: string;
     gender?: 'male' | 'female';
-    bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
+    bloodGroup?:
+        | 'A+'
+        | 'A-'
+        | 'B+'
+        | 'B-'
+        | 'AB+'
+        | 'AB-'
+        | 'O+'
+        | 'O-';
     academicDepartment?: string;
     academicFaculty?: string;
     designation?: string;

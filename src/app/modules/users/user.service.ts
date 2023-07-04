@@ -4,7 +4,11 @@ import { AcademicSemester } from '../academicSemester/academicSemesterModel';
 import { IStudent } from '../student/student.interface';
 import { IUser } from './user.interface';
 import { User } from './user.model';
-import { generateAdminId, generateFacultyId, generateStudentId } from './user.utils';
+import {
+    generateAdminId,
+    generateFacultyId,
+    generateStudentId
+} from './user.utils';
 import { Student } from '../student/student.model';
 import ApiError from '../../../error/ApiError';
 import { IFaculty } from '../faculty/faculty.interface';
@@ -12,7 +16,10 @@ import { Faculty } from '../faculty/faculty.model';
 import { IAdmin } from '../admin/admin.interface';
 import { Admin } from '../admin/admin.model';
 
-const createStudent = async (student: IStudent, user: IUser): Promise<IUser | null> => {
+const createStudent = async (
+    student: IStudent,
+    user: IUser
+): Promise<IUser | null> => {
     // Default password
 
     if (!user.password) {
@@ -23,7 +30,9 @@ const createStudent = async (student: IStudent, user: IUser): Promise<IUser | nu
     user.role = 'student';
 
     // Get academic semester
-    const academicSemester = await AcademicSemester.findById(student.academicSemester);
+    const academicSemester = await AcademicSemester.findById(
+        student.academicSemester
+    );
 
     let newUserData = null;
     // Create session
@@ -35,7 +44,9 @@ const createStudent = async (student: IStudent, user: IUser): Promise<IUser | nu
         user.id = studentId;
         student.id = studentId;
         //array
-        const newStudent = await Student.create([student], { session });
+        const newStudent = await Student.create([student], {
+            session
+        });
 
         if (!newStudent.length) {
             throw new ApiError(400, 'Failed to create student');
@@ -63,7 +74,9 @@ const createStudent = async (student: IStudent, user: IUser): Promise<IUser | nu
     //user --> student ---> academicSemester, academicDepartment , academicFaculty
 
     if (newUserData) {
-        newUserData = await User.findOne({ id: newUserData.id }).populate({
+        newUserData = await User.findOne({
+            id: newUserData.id
+        }).populate({
             path: 'student',
             populate: [
                 {
@@ -82,7 +95,10 @@ const createStudent = async (student: IStudent, user: IUser): Promise<IUser | nu
     return newUserData;
 };
 
-const createFaculty = async (faculty: IFaculty, user: IUser): Promise<IUser | null> => {
+const createFaculty = async (
+    faculty: IFaculty,
+    user: IUser
+): Promise<IUser | null> => {
     // default password
     if (!user.password) {
         user.password = config.default_faculty_pass as string;
@@ -101,7 +117,9 @@ const createFaculty = async (faculty: IFaculty, user: IUser): Promise<IUser | nu
         user.id = id;
         faculty.id = id;
 
-        const newFaculty = await Faculty.create([faculty], { session });
+        const newFaculty = await Faculty.create([faculty], {
+            session
+        });
 
         if (!newFaculty.length) {
             throw new ApiError(400, 'Failed to create faculty ');
@@ -125,7 +143,9 @@ const createFaculty = async (faculty: IFaculty, user: IUser): Promise<IUser | nu
     }
 
     if (newUserAllData) {
-        newUserAllData = await User.findOne({ id: newUserAllData.id }).populate({
+        newUserAllData = await User.findOne({
+            id: newUserAllData.id
+        }).populate({
             path: 'faculty',
             populate: [
                 {
@@ -141,7 +161,10 @@ const createFaculty = async (faculty: IFaculty, user: IUser): Promise<IUser | nu
     return newUserAllData;
 };
 
-const createAdmin = async (admin: IAdmin, user: IUser): Promise<IUser | null> => {
+const createAdmin = async (
+    admin: IAdmin,
+    user: IUser
+): Promise<IUser | null> => {
     // default password
     if (!user.password) {
         user.password = config.default_admin_pass as string;
@@ -184,7 +207,9 @@ const createAdmin = async (admin: IAdmin, user: IUser): Promise<IUser | null> =>
     }
 
     if (newUserAllData) {
-        newUserAllData = await User.findOne({ id: newUserAllData.id }).populate({
+        newUserAllData = await User.findOne({
+            id: newUserAllData.id
+        }).populate({
             path: 'admin',
             populate: [
                 {

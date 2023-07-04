@@ -7,58 +7,72 @@ import { IAdmin } from './admin.interface';
 import { AdminService } from './admin.service';
 import { paginationFields } from '../../../constant/pagination';
 
-const getAllAdmins = catchAsync(async (req: Request, res: Response) => {
-    const filters = pick(req.query, adminFilterableFields);
-    const paginationOptions = pick(req.query, paginationFields);
+const getAllAdmins = catchAsync(
+    async (req: Request, res: Response) => {
+        const filters = pick(req.query, adminFilterableFields);
+        const paginationOptions = pick(req.query, paginationFields);
 
-    const result = await AdminService.getAllAdmins(filters, paginationOptions);
+        const result = await AdminService.getAllAdmins(
+            filters,
+            paginationOptions
+        );
 
-    sendResponse<IAdmin[]>(res, {
-        statusCode: 200,
-        success: true,
-        message: 'Admins retrieved successfully !',
-        meta: result.meta,
-        data: result.data
-    });
-});
+        sendResponse<IAdmin[]>(res, {
+            statusCode: 200,
+            success: true,
+            message: 'Admins retrieved successfully !',
+            meta: result.meta,
+            data: result.data
+        });
+    }
+);
 
-const getSingleAdmin = catchAsync(async (req: Request, res: Response) => {
-    const id = req.params.id;
-    const result = await AdminService.getSingleAdmin(id);
+const getSingleAdmin = catchAsync(
+    async (req: Request, res: Response) => {
+        const id = req.params.id;
+        const result = await AdminService.getSingleAdmin(id);
 
-    sendResponse<IAdmin>(res, {
-        statusCode: 200,
-        success: true,
-        message: 'Admin retrieved successfully !',
-        data: result
-    });
-});
+        sendResponse<IAdmin>(res, {
+            statusCode: 200,
+            success: true,
+            message: 'Admin retrieved successfully !',
+            data: result
+        });
+    }
+);
 
-const updateAdmin = catchAsync(async (req: Request, res: Response) => {
-    const id = req.params.id;
-    const updatedData = req.body;
+const updateAdmin = catchAsync(
+    async (req: Request, res: Response) => {
+        const id = req.params.id;
+        const updatedData = req.body;
 
-    const result = await AdminService.updateAdmin(id, updatedData);
+        const result = await AdminService.updateAdmin(
+            id,
+            updatedData
+        );
 
-    sendResponse<IAdmin>(res, {
-        statusCode: 200,
-        success: true,
-        message: 'Admin updated successfully !',
-        data: result
-    });
-});
-const deleteAdmin = catchAsync(async (req: Request, res: Response) => {
-    const id = req.params.id;
+        sendResponse<IAdmin>(res, {
+            statusCode: 200,
+            success: true,
+            message: 'Admin updated successfully !',
+            data: result
+        });
+    }
+);
+const deleteAdmin = catchAsync(
+    async (req: Request, res: Response) => {
+        const id = req.params.id;
 
-    const result = await AdminService.deleteAdmin(id);
+        const result = await AdminService.deleteAdmin(id);
 
-    sendResponse<IAdmin>(res, {
-        statusCode: 200,
-        success: true,
-        message: 'Admin deleted successfully !',
-        data: result
-    });
-});
+        sendResponse<IAdmin>(res, {
+            statusCode: 200,
+            success: true,
+            message: 'Admin deleted successfully !',
+            data: result
+        });
+    }
+);
 
 export const AdminController = {
     getAllAdmins,

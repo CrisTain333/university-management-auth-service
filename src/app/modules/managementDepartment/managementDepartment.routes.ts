@@ -7,19 +7,29 @@ const router = express.Router();
 
 router.post(
     '/create-department',
-    validateRequest(ManagementDepartmentValidation.createManagementDepartmentZodSchema),
+    validateRequest(
+        ManagementDepartmentValidation.createManagementDepartmentZodSchema
+    ),
     ManagementDepartmentController.createDepartment
 );
 
-router.get('/:id', ManagementDepartmentController.getSingleDepartment);
+router.get(
+    '/:id',
+    ManagementDepartmentController.getSingleDepartment
+);
 
 router.patch(
     '/:id',
-    validateRequest(ManagementDepartmentValidation.updateManagementDepartmentZodSchema),
+    validateRequest(
+        ManagementDepartmentValidation.updateManagementDepartmentZodSchema
+    ),
     ManagementDepartmentController.updateDepartment
 );
 
-router.delete('/:id', ManagementDepartmentController.deleteDepartment);
+router.delete(
+    '/:id',
+    ManagementDepartmentController.deleteDepartment
+);
 
 router.get('/', ManagementDepartmentController.getAllDepartments);
 

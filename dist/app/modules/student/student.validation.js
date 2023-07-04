@@ -10,12 +10,16 @@ const updateStudentZodSchema = zod_1.z.object({
             lastName: zod_1.z.string().optional(),
             middleName: zod_1.z.string().optional()
         }),
-        gender: zod_1.z.enum([...student_constant_1.gender]).optional(),
+        gender: zod_1.z
+            .enum([...student_constant_1.gender])
+            .optional(),
         dateOfBirth: zod_1.z.string().optional(),
         email: zod_1.z.string().email().optional(),
         contactNo: zod_1.z.string().optional(),
         emergencyContactNo: zod_1.z.string().optional(),
-        bloodGroup: zod_1.z.enum([...student_constant_1.bloodGroup]).optional(),
+        bloodGroup: zod_1.z
+            .enum([...student_constant_1.bloodGroup])
+            .optional(),
         presentAddress: zod_1.z.string().optional(),
         permanentAddress: zod_1.z.string().optional(),
         academicSemester: zod_1.z.string().optional(),

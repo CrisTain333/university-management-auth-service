@@ -32,7 +32,9 @@ const userZodSchema = z.object({
             emergencyContactNo: z.string({
                 required_error: 'Emergency contact number is required'
             }),
-            bloodGroup: z.enum([...bloodGroup] as [string, ...string[]]).optional(),
+            bloodGroup: z
+                .enum([...bloodGroup] as [string, ...string[]])
+                .optional(),
             presentAddress: z.string({
                 required_error: 'Present address is required'
             }),
@@ -56,7 +58,8 @@ const userZodSchema = z.object({
                     required_error: 'Father occupation is required'
                 }),
                 fatherContactNo: z.string({
-                    required_error: 'Father contact number is required'
+                    required_error:
+                        'Father contact number is required'
                 }),
                 motherName: z.string({
                     required_error: 'Mother name is required'
@@ -65,7 +68,8 @@ const userZodSchema = z.object({
                     required_error: 'Mother occupation is required'
                 }),
                 motherContactNo: z.string({
-                    required_error: 'Mother contact number is required'
+                    required_error:
+                        'Mother contact number is required'
                 }),
                 address: z.string({
                     required_error: 'Guardian address is required'
@@ -76,13 +80,16 @@ const userZodSchema = z.object({
                     required_error: 'Local guardian name is required'
                 }),
                 occupation: z.string({
-                    required_error: 'Local guardian occupation is required'
+                    required_error:
+                        'Local guardian occupation is required'
                 }),
                 contactNo: z.string({
-                    required_error: 'Local guardian contact number is required'
+                    required_error:
+                        'Local guardian contact number is required'
                 }),
                 address: z.string({
-                    required_error: 'Local guardian address is required'
+                    required_error:
+                        'Local guardian address is required'
                 })
             }),
             profileImage: z.string().optional()
@@ -121,7 +128,9 @@ const facultyZodSchema = z.object({
             emergencyContactNo: z.string({
                 required_error: 'Emergency contact number is required'
             }),
-            bloodGroup: z.enum([...bloodGroup] as [string, ...string[]]).optional(),
+            bloodGroup: z
+                .enum([...bloodGroup] as [string, ...string[]])
+                .optional(),
             presentAddress: z.string({
                 required_error: 'Present address is required'
             }),

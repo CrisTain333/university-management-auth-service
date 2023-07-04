@@ -42,8 +42,14 @@ const userSchema = new Schema<IUser, UserModel>(
 
 userSchema.statics.isUserExist = async function (
     id: string
-): Promise<Pick<IUser, 'id' | 'password' | 'role' | 'needsPasswordChange'> | null> {
-    return await User.findOne({ id }, { id: 1, password: 1, role: 1, needsPasswordChange: 1 });
+): Promise<Pick<
+    IUser,
+    'id' | 'password' | 'role' | 'needsPasswordChange'
+> | null> {
+    return await User.findOne(
+        { id },
+        { id: 1, password: 1, role: 1, needsPasswordChange: 1 }
+    );
 };
 
 userSchema.statics.isPasswordMatched = async function (
@@ -54,7 +60,10 @@ userSchema.statics.isPasswordMatched = async function (
 };
 
 userSchema.pre('save', async function (next) {
-    this.password = await bcrypt.hash(this.password, Number(config.bcrypt_salt_rounds));
+    this.password = await bcrypt.hash(
+        this.password,
+        Number(config.bcrypt_salt_rounds)
+    );
     next();
 });
 

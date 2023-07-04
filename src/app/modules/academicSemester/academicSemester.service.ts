@@ -1,6 +1,12 @@
 import { AcademicSemester } from './academicSemesterModel';
-import { IAcademicSemester, IAcademicSemesterFilter } from './academicSemester.interface';
-import { academicSemesterTitleCodeMapper, searchAbleFields } from './academicSemester.constant';
+import {
+    IAcademicSemester,
+    IAcademicSemesterFilter
+} from './academicSemester.interface';
+import {
+    academicSemesterTitleCodeMapper,
+    searchAbleFields
+} from './academicSemester.constant';
 import ApiError from '../../../error/ApiError';
 import { IPaginationOptions } from '../../../interface/pagination';
 import { paginationHelper } from '../../../helpers/paginationHelper';
@@ -15,8 +21,13 @@ type IGenericResponse<T> = {
     };
     data: T;
 };
-const createAcademicSemester = async (payload: IAcademicSemester): Promise<IAcademicSemester> => {
-    if (academicSemesterTitleCodeMapper[payload?.title] !== payload.code) {
+const createAcademicSemester = async (
+    payload: IAcademicSemester
+): Promise<IAcademicSemester> => {
+    if (
+        academicSemesterTitleCodeMapper[payload?.title] !==
+        payload.code
+    ) {
         throw new ApiError(400, 'Invalid Semester Code');
     }
 
@@ -46,9 +57,11 @@ const getAllSemestersFromDb = async (
 
     if (Object.keys(filtersData).length) {
         andConditions.push({
-            $and: Object.entries(filtersData).map(([field, value]) => ({
-                [field]: value
-            }))
+            $and: Object.entries(filtersData).map(
+                ([field, value]) => ({
+                    [field]: value
+                })
+            )
         });
     }
 
@@ -61,7 +74,8 @@ const getAllSemestersFromDb = async (
         sortCondition[sortBy] = sortOrder;
     }
 
-    const whereConditions = andConditions.length > 0 ? { $and: andConditions } : {};
+    const whereConditions =
+        andConditions.length > 0 ? { $and: andConditions } : {};
 
     const result = await AcademicSemester.find(whereConditions)
         .sort(sortCondition)
@@ -79,7 +93,9 @@ const getAllSemestersFromDb = async (
     };
 };
 
-const getSingleSemester = async (id: string): Promise<IAcademicSemester | null> => {
+const getSingleSemester = async (
+    id: string
+): Promise<IAcademicSemester | null> => {
     const result = await AcademicSemester.findById(id);
     return result;
 };
@@ -91,18 +107,25 @@ const updateSemester = async (
     if (
         payload.title &&
         payload.code &&
-        academicSemesterTitleCodeMapper[payload.title] !== payload.code
+        academicSemesterTitleCodeMapper[payload.title] !==
+            payload.code
     ) {
         throw new ApiError(400, 'Invalid Semester Code');
     }
 
-    const result = await AcademicSemester.findOneAndUpdate({ _id: id }, payload, {
-        new: true
-    });
+    const result = await AcademicSemester.findOneAndUpdate(
+        { _id: id },
+        payload,
+        {
+            new: true
+        }
+    );
     return result;
 };
 
-const deleteSemester = async (id: string): Promise<IAcademicSemester | null> => {
+const deleteSemester = async (
+    id: string
+): Promise<IAcademicSemester | null> => {
     const result = await AcademicSemester.findByIdAndDelete(id);
     return result;
 };

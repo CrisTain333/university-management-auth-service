@@ -25,9 +25,16 @@ var __awaiter =
                 }
             }
             function step(result) {
-                result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+                result.done
+                    ? resolve(result.value)
+                    : adopt(result.value).then(fulfilled, rejected);
             }
-            step((generator = generator.apply(thisArg, _arguments || [])).next());
+            step(
+                (generator = generator.apply(
+                    thisArg,
+                    _arguments || []
+                )).next()
+            );
         });
     };
 var __importDefault =
@@ -43,7 +50,9 @@ const academicSemesterModel_1 = require('../academicSemester/academicSemesterMod
 const user_model_1 = require('./user.model');
 const user_utils_1 = require('./user.utils');
 const student_model_1 = require('../student/student.model');
-const ApiError_1 = __importDefault(require('../../../error/ApiError'));
+const ApiError_1 = __importDefault(
+    require('../../../error/ApiError')
+);
 const createStudent = (student, user) =>
     __awaiter(void 0, void 0, void 0, function* () {
         // Default password
@@ -53,28 +62,41 @@ const createStudent = (student, user) =>
         // Set role
         user.role = 'student';
         // Get academic semester
-        const academicSemester = yield academicSemesterModel_1.AcademicSemester.findById(
-            student.academicSemester
-        );
+        const academicSemester =
+            yield academicSemesterModel_1.AcademicSemester.findById(
+                student.academicSemester
+            );
         let newUserData = null;
         // Create session
         const session = yield mongoose_1.default.startSession();
         try {
             // start the session
             session.startTransaction();
-            const studentId = yield (0, user_utils_1.generateStudentId)(academicSemester);
+            const studentId = yield (0,
+            user_utils_1.generateStudentId)(academicSemester);
             user.id = studentId;
             student.id = studentId;
             //array
-            const newStudent = yield student_model_1.Student.create([student], { session });
+            const newStudent = yield student_model_1.Student.create(
+                [student],
+                { session }
+            );
             if (!newStudent.length) {
-                throw new ApiError_1.default(400, 'Failed to create student');
+                throw new ApiError_1.default(
+                    400,
+                    'Failed to create student'
+                );
             }
             //set student -->  _id into user.student
             user.student = newStudent[0]._id;
-            const newUser = yield user_model_1.User.create([user], { session });
+            const newUser = yield user_model_1.User.create([user], {
+                session
+            });
             if (!newUser.length) {
-                throw new ApiError_1.default(400, 'Failed to create user');
+                throw new ApiError_1.default(
+                    400,
+                    'Failed to create user'
+                );
             }
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             newUserData = newUser[0];
@@ -87,7 +109,9 @@ const createStudent = (student, user) =>
         }
         //user --> student ---> academicSemester, academicDepartment , academicFaculty
         if (newUserData) {
-            newUserData = yield user_model_1.User.findOne({ id: newUserData.id }).populate({
+            newUserData = yield user_model_1.User.findOne({
+                id: newUserData.id
+            }).populate({
                 path: 'student',
                 populate: [
                     {

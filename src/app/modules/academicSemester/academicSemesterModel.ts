@@ -1,5 +1,8 @@
 import { Schema, model } from 'mongoose';
-import { AcademicSemesterModel, IAcademicSemester } from './academicSemester.interface';
+import {
+    AcademicSemesterModel,
+    IAcademicSemester
+} from './academicSemester.interface';
 import {
     academicSemesterCodes,
     academicSemesterMonths,
@@ -40,7 +43,10 @@ const academicSemesterSchema = new Schema<IAcademicSemester>(
 );
 
 academicSemesterSchema.pre('save', async function (next) {
-    const ifExits = await AcademicSemester.findOne({ title: this.title, year: this.year });
+    const ifExits = await AcademicSemester.findOne({
+        title: this.title,
+        year: this.year
+    });
 
     if (ifExits) {
         throw new ApiError(409, 'Academic semester all ready exits');
@@ -48,7 +54,7 @@ academicSemesterSchema.pre('save', async function (next) {
     next();
 });
 
-export const AcademicSemester = model<IAcademicSemester, AcademicSemesterModel>(
-    'AcademicSemester',
-    academicSemesterSchema
-);
+export const AcademicSemester = model<
+    IAcademicSemester,
+    AcademicSemesterModel
+>('AcademicSemester', academicSemesterSchema);

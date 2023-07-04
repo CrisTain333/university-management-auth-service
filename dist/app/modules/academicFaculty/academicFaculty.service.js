@@ -25,9 +25,16 @@ var __awaiter =
                 }
             }
             function step(result) {
-                result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+                result.done
+                    ? resolve(result.value)
+                    : adopt(result.value).then(fulfilled, rejected);
             }
-            step((generator = generator.apply(thisArg, _arguments || [])).next());
+            step(
+                (generator = generator.apply(
+                    thisArg,
+                    _arguments || []
+                )).next()
+            );
         });
     };
 var __rest =
@@ -35,10 +42,27 @@ var __rest =
     function (s, e) {
         var t = {};
         for (var p in s)
-            if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
-        if (s != null && typeof Object.getOwnPropertySymbols === 'function')
-            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-                if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+            if (
+                Object.prototype.hasOwnProperty.call(s, p) &&
+                e.indexOf(p) < 0
+            )
+                t[p] = s[p];
+        if (
+            s != null &&
+            typeof Object.getOwnPropertySymbols === 'function'
+        )
+            for (
+                var i = 0, p = Object.getOwnPropertySymbols(s);
+                i < p.length;
+                i++
+            ) {
+                if (
+                    e.indexOf(p[i]) < 0 &&
+                    Object.prototype.propertyIsEnumerable.call(
+                        s,
+                        p[i]
+                    )
+                )
                     t[p[i]] = s[p[i]];
             }
         return t;
@@ -50,7 +74,10 @@ const academicFaculty_model_1 = require('./academicFaculty.model');
 const academicFaculty_constant_1 = require('./academicFaculty.constant');
 const createFaculty = payload =>
     __awaiter(void 0, void 0, void 0, function* () {
-        const result = yield academicFaculty_model_1.AcademicFaculty.create(payload);
+        const result =
+            yield academicFaculty_model_1.AcademicFaculty.create(
+                payload
+            );
         return result;
     });
 const getAllFaculties = (filters, paginationOptions) =>
@@ -58,35 +85,46 @@ const getAllFaculties = (filters, paginationOptions) =>
         const { searchTerm } = filters,
             filtersData = __rest(filters, ['searchTerm']);
         const { page, limit, skip, sortBy, sortOrder } =
-            paginationHelper_1.paginationHelper.calculatePagination(paginationOptions);
+            paginationHelper_1.paginationHelper.calculatePagination(
+                paginationOptions
+            );
         const andConditions = [];
         if (searchTerm) {
             andConditions.push({
-                $or: academicFaculty_constant_1.academicFacultySearchableFields.map(field => ({
-                    [field]: {
-                        $regex: searchTerm,
-                        $options: 'i'
-                    }
-                }))
+                $or: academicFaculty_constant_1.academicFacultySearchableFields.map(
+                    field => ({
+                        [field]: {
+                            $regex: searchTerm,
+                            $options: 'i'
+                        }
+                    })
+                )
             });
         }
         if (Object.keys(filtersData).length) {
             andConditions.push({
-                $and: Object.entries(filtersData).map(([field, value]) => ({
-                    [field]: value
-                }))
+                $and: Object.entries(filtersData).map(
+                    ([field, value]) => ({
+                        [field]: value
+                    })
+                )
             });
         }
         const sortConditions = {};
         if (sortBy && sortOrder) {
             sortConditions[sortBy] = sortOrder;
         }
-        const whereConditions = andConditions.length > 0 ? { $and: andConditions } : {};
-        const result = yield academicFaculty_model_1.AcademicFaculty.find(whereConditions)
-            .sort(sortConditions)
-            .skip(skip)
-            .limit(limit);
-        const total = yield academicFaculty_model_1.AcademicFaculty.countDocuments();
+        const whereConditions =
+            andConditions.length > 0 ? { $and: andConditions } : {};
+        const result =
+            yield academicFaculty_model_1.AcademicFaculty.find(
+                whereConditions
+            )
+                .sort(sortConditions)
+                .skip(skip)
+                .limit(limit);
+        const total =
+            yield academicFaculty_model_1.AcademicFaculty.countDocuments();
         return {
             meta: {
                 page,
@@ -98,23 +136,30 @@ const getAllFaculties = (filters, paginationOptions) =>
     });
 const getSingleFaculty = id =>
     __awaiter(void 0, void 0, void 0, function* () {
-        const result = yield academicFaculty_model_1.AcademicFaculty.findById(id);
+        const result =
+            yield academicFaculty_model_1.AcademicFaculty.findById(
+                id
+            );
         return result;
     });
 const updateFaculty = (id, payload) =>
     __awaiter(void 0, void 0, void 0, function* () {
-        const result = yield academicFaculty_model_1.AcademicFaculty.findOneAndUpdate(
-            { _id: id },
-            payload,
-            {
-                new: true
-            }
-        );
+        const result =
+            yield academicFaculty_model_1.AcademicFaculty.findOneAndUpdate(
+                { _id: id },
+                payload,
+                {
+                    new: true
+                }
+            );
         return result;
     });
 const deleteByIdFromDB = id =>
     __awaiter(void 0, void 0, void 0, function* () {
-        const result = yield academicFaculty_model_1.AcademicFaculty.findByIdAndDelete(id);
+        const result =
+            yield academicFaculty_model_1.AcademicFaculty.findByIdAndDelete(
+                id
+            );
         return result;
     });
 exports.AcademicFacultyService = {

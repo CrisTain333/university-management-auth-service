@@ -3,7 +3,10 @@ Object.defineProperty(exports, '__esModule', { value: true });
 const handleZodError = error => {
     var _a;
     const errors =
-        (_a = error === null || error === void 0 ? void 0 : error.issues) === null || _a === void 0
+        (_a =
+            error === null || error === void 0
+                ? void 0
+                : error.issues) === null || _a === void 0
             ? void 0
             : _a.map(issue => {
                   var _a;
@@ -13,13 +16,18 @@ const handleZodError = error => {
                               ? void 0
                               : issue.path[
                                     ((_a =
-                                        issue === null || issue === void 0
+                                        issue === null ||
+                                        issue === void 0
                                             ? void 0
-                                            : issue.path) === null || _a === void 0
+                                            : issue.path) === null ||
+                                    _a === void 0
                                         ? void 0
                                         : _a.length) - 1
                                 ],
-                      message: issue === null || issue === void 0 ? void 0 : issue.message
+                      message:
+                          issue === null || issue === void 0
+                              ? void 0
+                              : issue.message
                   };
               });
     return {

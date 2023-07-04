@@ -25,9 +25,16 @@ var __awaiter =
                 }
             }
             function step(result) {
-                result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+                result.done
+                    ? resolve(result.value)
+                    : adopt(result.value).then(fulfilled, rejected);
             }
-            step((generator = generator.apply(thisArg, _arguments || [])).next());
+            step(
+                (generator = generator.apply(
+                    thisArg,
+                    _arguments || []
+                )).next()
+            );
         });
     };
 var __importDefault =
@@ -47,11 +54,18 @@ let server;
 function fire() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield mongoose_1.default.connect(config_1.default.database_url);
+            yield mongoose_1.default.connect(
+                config_1.default.database_url
+            );
             console.log('🛢 Connected To Database');
-            server = app_1.default.listen(config_1.default.port, () => {
-                console.log(`Server Fire in http:localhost//${config_1.default.port}`);
-            });
+            server = app_1.default.listen(
+                config_1.default.port,
+                () => {
+                    console.log(
+                        `Server Fire in http:localhost//${config_1.default.port}`
+                    );
+                }
+            );
         } catch (error) {
             console.log('Error to connect Database');
         }

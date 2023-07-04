@@ -32,9 +32,11 @@ const getAllAdmins = async (
 
     if (Object.keys(filtersData).length) {
         andConditions.push({
-            $and: Object.entries(filtersData).map(([field, value]) => ({
-                [field]: value
-            }))
+            $and: Object.entries(filtersData).map(
+                ([field, value]) => ({
+                    [field]: value
+                })
+            )
         });
     }
 
@@ -43,7 +45,8 @@ const getAllAdmins = async (
     if (sortBy && sortOrder) {
         sortConditions[sortBy] = sortOrder;
     }
-    const whereConditions = andConditions.length > 0 ? { $and: andConditions } : {};
+    const whereConditions =
+        andConditions.length > 0 ? { $and: andConditions } : {};
 
     const result = await Admin.find(whereConditions)
         .populate('managementDepartment')
@@ -64,11 +67,16 @@ const getAllAdmins = async (
 };
 
 const getSingleAdmin = async (id: string): Promise<IAdmin | null> => {
-    const result = await Admin.findOne({ id }).populate('ManagementDepartment');
+    const result = await Admin.findOne({ id }).populate(
+        'ManagementDepartment'
+    );
     return result;
 };
 
-const updateAdmin = async (id: string, payload: Partial<IAdmin>): Promise<IAdmin | null> => {
+const updateAdmin = async (
+    id: string,
+    payload: Partial<IAdmin>
+): Promise<IAdmin | null> => {
     const isExist = await Admin.findOne({ id });
 
     if (!isExist) {
@@ -82,13 +90,18 @@ const updateAdmin = async (id: string, payload: Partial<IAdmin>): Promise<IAdmin
     if (name && Object.keys(name).length > 0) {
         Object.keys(name).forEach(key => {
             const nameKey = `name.${key}` as keyof Partial<IAdmin>;
-            (updatedStudentData as any)[nameKey] = name[key as keyof typeof name];
+            (updatedStudentData as any)[nameKey] =
+                name[key as keyof typeof name];
         });
     }
 
-    const result = await Admin.findOneAndUpdate({ id }, updatedStudentData, {
-        new: true
-    });
+    const result = await Admin.findOneAndUpdate(
+        { id },
+        updatedStudentData,
+        {
+            new: true
+        }
+    );
     return result;
 };
 
@@ -105,7 +118,10 @@ const deleteAdmin = async (id: string): Promise<IAdmin | null> => {
     try {
         session.startTransaction();
         //delete student first
-        const student = await Admin.findOneAndDelete({ id }, { session });
+        const student = await Admin.findOneAndDelete(
+            { id },
+            { session }
+        );
         if (!student) {
             throw new ApiError(404, 'Failed to delete student');
         }

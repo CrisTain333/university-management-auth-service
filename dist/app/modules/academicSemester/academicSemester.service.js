@@ -25,9 +25,16 @@ var __awaiter =
                 }
             }
             function step(result) {
-                result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+                result.done
+                    ? resolve(result.value)
+                    : adopt(result.value).then(fulfilled, rejected);
             }
-            step((generator = generator.apply(thisArg, _arguments || [])).next());
+            step(
+                (generator = generator.apply(
+                    thisArg,
+                    _arguments || []
+                )).next()
+            );
         });
     };
 var __rest =
@@ -35,10 +42,27 @@ var __rest =
     function (s, e) {
         var t = {};
         for (var p in s)
-            if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
-        if (s != null && typeof Object.getOwnPropertySymbols === 'function')
-            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-                if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+            if (
+                Object.prototype.hasOwnProperty.call(s, p) &&
+                e.indexOf(p) < 0
+            )
+                t[p] = s[p];
+        if (
+            s != null &&
+            typeof Object.getOwnPropertySymbols === 'function'
+        )
+            for (
+                var i = 0, p = Object.getOwnPropertySymbols(s);
+                i < p.length;
+                i++
+            ) {
+                if (
+                    e.indexOf(p[i]) < 0 &&
+                    Object.prototype.propertyIsEnumerable.call(
+                        s,
+                        p[i]
+                    )
+                )
                     t[p[i]] = s[p[i]];
             }
         return t;
@@ -52,18 +76,29 @@ Object.defineProperty(exports, '__esModule', { value: true });
 exports.AcademicSemesterService = void 0;
 const academicSemesterModel_1 = require('./academicSemesterModel');
 const academicSemester_constant_1 = require('./academicSemester.constant');
-const ApiError_1 = __importDefault(require('../../../error/ApiError'));
+const ApiError_1 = __importDefault(
+    require('../../../error/ApiError')
+);
 const paginationHelper_1 = require('../../../helpers/paginationHelper');
 const createAcademicSemester = payload =>
     __awaiter(void 0, void 0, void 0, function* () {
         if (
-            academicSemester_constant_1.academicSemesterTitleCodeMapper[
-                payload === null || payload === void 0 ? void 0 : payload.title
+            academicSemester_constant_1
+                .academicSemesterTitleCodeMapper[
+                payload === null || payload === void 0
+                    ? void 0
+                    : payload.title
             ] !== payload.code
         ) {
-            throw new ApiError_1.default(400, 'Invalid Semester Code');
+            throw new ApiError_1.default(
+                400,
+                'Invalid Semester Code'
+            );
         }
-        const result = yield academicSemesterModel_1.AcademicSemester.create(payload);
+        const result =
+            yield academicSemesterModel_1.AcademicSemester.create(
+                payload
+            );
         return result;
     });
 const getAllSemestersFromDb = (paginationOptions, filters) =>
@@ -73,33 +108,44 @@ const getAllSemestersFromDb = (paginationOptions, filters) =>
         const andConditions = [];
         if (searchTerm) {
             andConditions.push({
-                $or: academicSemester_constant_1.searchAbleFields.map(fields => ({
-                    [fields]: {
-                        $regex: searchTerm,
-                        $options: 'i'
-                    }
-                }))
+                $or: academicSemester_constant_1.searchAbleFields.map(
+                    fields => ({
+                        [fields]: {
+                            $regex: searchTerm,
+                            $options: 'i'
+                        }
+                    })
+                )
             });
         }
         if (Object.keys(filtersData).length) {
             andConditions.push({
-                $and: Object.entries(filtersData).map(([field, value]) => ({
-                    [field]: value
-                }))
+                $and: Object.entries(filtersData).map(
+                    ([field, value]) => ({
+                        [field]: value
+                    })
+                )
             });
         }
         const { limit, page, skip, sortBy, sortOrder } =
-            paginationHelper_1.paginationHelper.calculatePagination(paginationOptions);
+            paginationHelper_1.paginationHelper.calculatePagination(
+                paginationOptions
+            );
         const sortCondition = {};
         if (sortBy && sortOrder) {
             sortCondition[sortBy] = sortOrder;
         }
-        const whereConditions = andConditions.length > 0 ? { $and: andConditions } : {};
-        const result = yield academicSemesterModel_1.AcademicSemester.find(whereConditions)
-            .sort(sortCondition)
-            .skip(skip)
-            .limit(limit);
-        const total = yield academicSemesterModel_1.AcademicSemester.countDocuments();
+        const whereConditions =
+            andConditions.length > 0 ? { $and: andConditions } : {};
+        const result =
+            yield academicSemesterModel_1.AcademicSemester.find(
+                whereConditions
+            )
+                .sort(sortCondition)
+                .skip(skip)
+                .limit(limit);
+        const total =
+            yield academicSemesterModel_1.AcademicSemester.countDocuments();
         return {
             meta: {
                 page,
@@ -111,7 +157,10 @@ const getAllSemestersFromDb = (paginationOptions, filters) =>
     });
 const getSingleSemester = id =>
     __awaiter(void 0, void 0, void 0, function* () {
-        const result = yield academicSemesterModel_1.AcademicSemester.findById(id);
+        const result =
+            yield academicSemesterModel_1.AcademicSemester.findById(
+                id
+            );
         return result;
     });
 const updateSemester = (id, payload) =>
@@ -119,23 +168,31 @@ const updateSemester = (id, payload) =>
         if (
             payload.title &&
             payload.code &&
-            academicSemester_constant_1.academicSemesterTitleCodeMapper[payload.title] !==
+            academicSemester_constant_1
+                .academicSemesterTitleCodeMapper[payload.title] !==
                 payload.code
         ) {
-            throw new ApiError_1.default(400, 'Invalid Semester Code');
+            throw new ApiError_1.default(
+                400,
+                'Invalid Semester Code'
+            );
         }
-        const result = yield academicSemesterModel_1.AcademicSemester.findOneAndUpdate(
-            { _id: id },
-            payload,
-            {
-                new: true
-            }
-        );
+        const result =
+            yield academicSemesterModel_1.AcademicSemester.findOneAndUpdate(
+                { _id: id },
+                payload,
+                {
+                    new: true
+                }
+            );
         return result;
     });
 const deleteSemester = id =>
     __awaiter(void 0, void 0, void 0, function* () {
-        const result = yield academicSemesterModel_1.AcademicSemester.findByIdAndDelete(id);
+        const result =
+            yield academicSemesterModel_1.AcademicSemester.findByIdAndDelete(
+                id
+            );
         return result;
     });
 exports.AcademicSemesterService = {

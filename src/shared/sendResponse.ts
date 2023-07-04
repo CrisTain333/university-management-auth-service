@@ -12,7 +12,10 @@ type IApiResponse<T> = {
     };
 };
 
-const sendResponse = <T>(res: Response, data: IApiResponse<T>): void => {
+const sendResponse = <T>(
+    res: Response,
+    data: IApiResponse<T>
+): void => {
     const responseData = {
         statusCode: data?.statusCode,
         success: data?.success,
