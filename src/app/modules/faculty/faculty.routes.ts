@@ -8,28 +8,28 @@ import { USER_ENUM_ROLE } from '../../../enums/user';
 const router = express.Router();
 
 router.get(
-    '/:id',
-    auth(
-        USER_ENUM_ROLE.ADMIN,
-        USER_ENUM_ROLE.FACULTY,
-        USER_ENUM_ROLE.SUPER_ADMIN
-    ),
-    FacultyController.getSingleFaculty
+  '/:id',
+  auth(
+    USER_ENUM_ROLE.ADMIN,
+    USER_ENUM_ROLE.FACULTY,
+    USER_ENUM_ROLE.SUPER_ADMIN
+  ),
+  FacultyController.getSingleFaculty
 );
 router.get(
-    '/',
-    auth(
-        USER_ENUM_ROLE.ADMIN,
-        USER_ENUM_ROLE.FACULTY,
-        USER_ENUM_ROLE.SUPER_ADMIN
-    ),
-    FacultyController.getAllFaculties
+  '/',
+  auth(
+    USER_ENUM_ROLE.ADMIN,
+    USER_ENUM_ROLE.FACULTY,
+    USER_ENUM_ROLE.SUPER_ADMIN
+  ),
+  FacultyController.getAllFaculties
 );
 
 router.patch(
-    '/:id',
-    validateRequest(FacultyValidation.updateFacultyZodSchema),
-    FacultyController.updateFaculty
+  '/:id',
+  validateRequest(FacultyValidation.updateFacultyZodSchema),
+  FacultyController.updateFaculty
 );
 
 router.delete('/:id', FacultyController.deleteFaculty);

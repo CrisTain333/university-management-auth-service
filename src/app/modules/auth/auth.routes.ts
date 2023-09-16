@@ -7,25 +7,25 @@ import { USER_ENUM_ROLE } from '../../../enums/user';
 const router = express.Router();
 
 router.post(
-    '/login',
-    validateRequest(AuthValidation.loginZodSchema),
-    AuthController.loginUser
+  '/login',
+  validateRequest(AuthValidation.loginZodSchema),
+  AuthController.loginUser
 );
 router.post(
-    '/refresh-token',
-    validateRequest(AuthValidation.refreshTokenZodSchema),
-    AuthController.refreshToken
+  '/refresh-token',
+  validateRequest(AuthValidation.refreshTokenZodSchema),
+  AuthController.refreshToken
 );
 router.post(
-    '/change-password',
-    validateRequest(AuthValidation.changePasswordZodSchema),
-    auth(
-        USER_ENUM_ROLE.SUPER_ADMIN,
-        USER_ENUM_ROLE.ADMIN,
-        USER_ENUM_ROLE.FACULTY,
-        USER_ENUM_ROLE.STUDENT
-    ),
-    AuthController.changePassword
+  '/change-password',
+  validateRequest(AuthValidation.changePasswordZodSchema),
+  auth(
+    USER_ENUM_ROLE.SUPER_ADMIN,
+    USER_ENUM_ROLE.ADMIN,
+    USER_ENUM_ROLE.FACULTY,
+    USER_ENUM_ROLE.STUDENT
+  ),
+  AuthController.changePassword
 );
 
 export const AuthRoutes = router;

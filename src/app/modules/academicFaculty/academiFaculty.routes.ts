@@ -7,17 +7,17 @@ import validateRequest from '../../../middleware/validateRequest';
 const router = express.Router();
 
 router.post(
-    '/create-faculty',
-    validateRequest(AcademicFacultyValidation.createFacultyZodSchema),
-    AcademicFacultyController.createFaculty
+  '/create-faculty',
+  validateRequest(AcademicFacultyValidation.createFacultyZodSchema),
+  AcademicFacultyController.createFaculty
 );
 
 router.get('/:id', AcademicFacultyController.getSingleFaculty);
 
 router.patch(
-    '/:id',
-    validateRequest(AcademicFacultyValidation.updateFacultyZodSchema),
-    AcademicFacultyController.updateFaculty
+  '/:id',
+  validateRequest(AcademicFacultyValidation.updateFacultyZodSchema),
+  AcademicFacultyController.updateFaculty
 );
 
 router.delete('/:id', AcademicFacultyController.deleteFaculty);

@@ -5,11 +5,9 @@ import { AcademySemesterController } from './academicSemester.controller';
 const router = express.Router();
 // Create semester
 router.post(
-    '/create-semester',
-    validateRequest(
-        AcademicSemesterValidate.academicSemesterZodSchema
-    ),
-    AcademySemesterController.createAcademicSemester
+  '/create-semester',
+  validateRequest(AcademicSemesterValidate.academicSemesterZodSchema),
+  AcademySemesterController.createAcademicSemester
 );
 
 // Get single semester
@@ -17,11 +15,9 @@ router.get('/:id', AcademySemesterController.getSingleSemester);
 
 //Update  semesters
 router.patch(
-    '/:id',
-    validateRequest(
-        AcademicSemesterValidate.updateAcademicSemesterZodSchema
-    ),
-    AcademySemesterController.updateSemester
+  '/:id',
+  validateRequest(AcademicSemesterValidate.updateAcademicSemesterZodSchema),
+  AcademySemesterController.updateSemester
 );
 
 // delete semester

@@ -11,9 +11,9 @@ router.get('/', StudentController.getAllStudents);
 router.delete('/:id', StudentController.deleteStudent);
 
 router.patch(
-    '/:id',
-    validateRequest(StudentValidation.updateStudentZodSchema),
-    StudentController.updateStudent
+  '/:id',
+  validateRequest(StudentValidation.updateStudentZodSchema),
+  StudentController.updateStudent
 );
 
 export const StudentRoutes = router;

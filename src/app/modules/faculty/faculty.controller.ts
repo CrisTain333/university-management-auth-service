@@ -1,81 +1,71 @@
 import { Request, Response } from 'express';
+import httpStatus from 'http-status';
+import { paginationFields } from '../../../constants/pagination';
 import catchAsync from '../../../shared/catchAsync';
 import pick from '../../../shared/pick';
-import { facultyFilterableFields } from './faculty.constant';
-import { paginationFields } from '../../../constant/pagination';
-import { FacultyService } from './faculty.service';
 import sendResponse from '../../../shared/sendResponse';
+import { facultyFilterableFields } from './faculty.constant';
 import { IFaculty } from './faculty.interface';
+import { FacultyService } from './faculty.service';
 
-const getAllFaculties = catchAsync(
-    async (req: Request, res: Response) => {
-        const filters = pick(req.query, facultyFilterableFields);
-        const paginationOptions = pick(req.query, paginationFields);
+const getSingleFaculty = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const result = await FacultyService.getSingleFaculty(id);
 
-        const result = await FacultyService.getAllFaculties(
-            filters,
-            paginationOptions
-        );
+  sendResponse<IFaculty>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Faculty fetched successfully !',
+    data: result,
+  });
+});
 
-        sendResponse<IFaculty[]>(res, {
-            statusCode: 200,
-            success: true,
-            message: 'faculties retrieved successfully !',
-            meta: result.meta,
-            data: result.data
-        });
-    }
-);
+const getAllFaculties = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, facultyFilterableFields);
+  const paginationOptions = pick(req.query, paginationFields);
 
-const getSingleFaculty = catchAsync(
-    async (req: Request, res: Response) => {
-        const id = req.params.id;
-        const result = await FacultyService.getSingleFaculty(id);
+  const result = await FacultyService.getAllFaculties(
+    filters,
+    paginationOptions
+  );
 
-        sendResponse<IFaculty>(res, {
-            statusCode: 200,
-            success: true,
-            message: 'faculty retrieved successfully !',
-            data: result
-        });
-    }
-);
+  sendResponse<IFaculty[]>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Faculties fetched successfully !',
+    meta: result.meta,
+    data: result.data,
+  });
+});
 
-const updateFaculty = catchAsync(
-    async (req: Request, res: Response) => {
-        const id = req.params.id;
-        const updatedData = req.body;
-        const result = await FacultyService.updateFaculty(
-            id,
-            updatedData
-        );
+const updateFaculty = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const updatedData = req.body;
+  const result = await FacultyService.updateFaculty(id, updatedData);
 
-        sendResponse<IFaculty>(res, {
-            statusCode: 200,
-            success: true,
-            message: 'faculty updated successfully !',
-            data: result
-        });
-    }
-);
+  sendResponse<IFaculty>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Faculty updated successfully !',
+    data: result,
+  });
+});
 
-const deleteFaculty = catchAsync(
-    async (req: Request, res: Response) => {
-        const id = req.params.id;
-        const result = await FacultyService.deleteFaculty(id);
+const deleteFaculty = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const result = await FacultyService.deleteFaculty(id);
 
-        sendResponse<IFaculty>(res, {
-            statusCode: 200,
-            success: true,
-            message: 'faculty deleted successfully !',
-            data: result
-        });
-    }
-);
+  sendResponse<IFaculty>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Faculty deleted successfully !',
+    data: result,
+  });
+});
 
 export const FacultyController = {
-    getAllFaculties,
-    getSingleFaculty,
-    updateFaculty,
-    deleteFaculty
+  getSingleFaculty,
+  getAllFaculties,
+  updateFaculty,
+  deleteFaculty,
 };
