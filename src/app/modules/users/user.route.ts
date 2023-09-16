@@ -6,21 +6,21 @@ import { UserValidate } from './user.validate';
 const router = express.Router();
 
 router.post(
-    '/create-student',
-    validateRequest(UserValidate.userZodSchema),
-    UserController.createStudent
+  '/create-student',
+  validateRequest(UserValidate.userZodSchema),
+  UserController.createStudent
 );
 
 router.post(
-    '/create-faculty',
-    validateRequest(UserValidate.facultyZodSchema),
-    UserController.createFaculty
+  '/create-faculty',
+  validateRequest(UserValidate.facultyZodSchema),
+  UserController.createFaculty
 );
 
 router.post(
-    '/create-admin',
-    validateRequest(UserValidate.createAdminZodSchema),
-    UserController.createAdmin
+  '/create-admin',
+  validateRequest(UserValidate.createAdminZodSchema),
+  UserController.createAdmin
 );
 
 export const UserRoute = router;
