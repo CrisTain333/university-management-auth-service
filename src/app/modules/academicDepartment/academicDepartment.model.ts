@@ -22,7 +22,7 @@ const AcademicDepartmentSchema = new Schema<
     syncId: {
       type: String,
       required: true,
-      unique: true,
+      unique: true
     },
   },
   {

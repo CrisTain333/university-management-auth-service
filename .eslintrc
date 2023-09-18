@@ -11,7 +11,7 @@
     "prettier"
   ],
   "rules": {
-    "no-unused-vars": "warn",
+    "no-unused-vars": "error",
     "prefer-const": "error",
     "no-unused-expressions": "error",
     "no-undef": "error",
@@ -22,9 +22,9 @@
   "env": {
     "browser": true,
     "es2021": true,
-    "node": true
+    "node":true
   },
   "globals": {
-    "process": "readonly"
+    "process":"readonly"
   }
 }

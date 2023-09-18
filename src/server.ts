@@ -17,12 +17,13 @@ let server: Server;
 async function bootstrap() {
   try {
     await RedisClient.connect().then(() => {
-      subscribeToEvents();
+      subscribeToEvents()
     });
+
 
     await mongoose.connect(config.database_url as string);
     // logger.info(`🛢   Database is connected successfully`);
-    console.log(`🛢 Database is connected successfully`);
+    console.log(`🛢   Database is connected successfully`);
 
     server = app.listen(config.port, () => {
       // logger.info(`Application  listening on port ${config.port}`);

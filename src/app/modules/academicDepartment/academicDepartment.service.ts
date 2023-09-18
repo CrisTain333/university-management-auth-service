@@ -114,36 +114,28 @@ const deleteDepartment = async (
   return result;
 };
 
-const insertIntoDBFromEvent = async (
-  e: AcademicDepartmentCreatedEvent
-): Promise<void> => {
-  const academicFaculty = await AcademicFaculty.findOne({
-    syncId: e.academicFacultyId,
-  });
+const insertIntoDBFromEvent = async (e: AcademicDepartmentCreatedEvent): Promise<void> => {
+  const academicFaculty = await AcademicFaculty.findOne({ syncId: e.academicFacultyId });
   const payload = {
     title: e.title,
     academicFaculty: academicFaculty?._id,
-    syncId: e.id,
+    syncId: e.id
   };
 
   await AcademicDepartment.create(payload);
 };
 
-const updateOneInDBFromEvent = async (
-  e: AcademicDepartmentUpdatedEvent
-): Promise<void> => {
-  const academicFaculty = await AcademicFaculty.findOne({
-    syncId: e.academicFacultyId,
-  });
+const updateOneInDBFromEvent = async (e: AcademicDepartmentUpdatedEvent): Promise<void> => {
+  const academicFaculty = await AcademicFaculty.findOne({ syncId: e.academicFacultyId });
   const payload = {
     title: e.title,
-    academicFaculty: academicFaculty?._id,
+    academicFaculty: academicFaculty?._id
   };
 
   await AcademicDepartment.findOneAndUpdate(
     { syncId: e.id },
     {
-      $set: payload,
+      $set: payload
     }
   );
 };
@@ -160,5 +152,5 @@ export const AcademicDepartmentService = {
   deleteDepartment,
   insertIntoDBFromEvent,
   updateOneInDBFromEvent,
-  deleteOneFromDBFromEvent,
+  deleteOneFromDBFromEvent
 };

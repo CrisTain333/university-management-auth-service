@@ -17,8 +17,8 @@ const AcademicFacultySchema = new Schema<
     syncId: {
       type: String,
       required: false,
-      unique: true,
-    },
+      unique: true
+    }
   },
   {
     timestamps: true,
