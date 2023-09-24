@@ -1,8 +1,8 @@
 import express from 'express';
 
+import validateRequest from '../../../middleware/validateRequest';
 import { AcademicFacultyController } from './academicFaculty.controller';
 import { AcademicFacultyValidation } from './academicFaculty.validations';
-import validateRequest from '../../../middleware/validateRequest';
 
 const router = express.Router();
 
@@ -16,7 +16,7 @@ router.get('/:id', AcademicFacultyController.getSingleFaculty);
 
 router.patch(
   '/:id',
-  validateRequest(AcademicFacultyValidation.updateFacultyZodSchema),
+  validateRequest(AcademicFacultyValidation.updatefacultyZodSchema),
   AcademicFacultyController.updateFaculty
 );
 
